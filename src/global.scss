@@ -1,0 +1,32 @@
+/* Application wide styles */
+
+// Google Fonts
+@import url('https://fonts.googleapis.com/css?family=Archivo+Black|Montserrat:400,700&display=swap');
+
+// colors
+:root{
+--dullpaper: #fdfdf8;
+--navbar-color: #282828;
+--text-color: #383838;
+
+--offBlack: var(--text-color);
+--lightpink: #f5e3e2;
+--dullpink: #e4d2d1;
+--applered: #e56c69;
+
+--background-color: var(--dullpaper);
+--nav-background: rgba(0,0,0,0);
+
+// transitions
+--easeOutQuad: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+--easeOutExpo: cubic-bezier(0.19, 1, 0.22, 1);
+--ezOuut: cubic-bezier(0, 0.78, 0, 0.98);
+
+}
+body{
+	background-color: var(--background-color);
+}
+
+.animation-clip{
+	overflow: hidden;
+}
