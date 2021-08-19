@@ -12,7 +12,7 @@
                 data-toggle="collapse"
                 :href="'#'+toggleId"
                 role="button"
-                aria-expanded="false"
+                aria-expanded="true"
                 :aria-controls="toggleId"
               >{{this.titleComputed}}</h1>
               <kinesis-container event="scroll" class="kinesisWrapper">
@@ -24,7 +24,7 @@
           </kinesis-element>
         </kinesis-container>
 
-        <div class="projectContent collapse" :id="toggleId">
+        <div class="projectContent collapse show" :id="toggleId">
           <h4 class="projectInfo">
             <span class="projectInfoLabel">Company</span>
             {{ this.companyComputed }}
@@ -221,7 +221,7 @@ export default {
   .projectTitleWrapper {
     display: flex;
     position: relative;
-    width: 85%;
+    width: 65%;
 
     .projectTitle {
       color: transparent;
