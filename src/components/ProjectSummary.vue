@@ -48,7 +48,7 @@
           <div class="projectImgWrapper" :id="imageId" :style="previewImagePerspectiveStyleComputed">
             <div class="previewImageLayer" id="projectImagePinkLayer"></div>
             <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
-            <img :src="'/projectPreviews/'+previewImgComputed" class="projectPreviewImage" :alt="'preview image for'+ titleComputed" />
+            <img :src="'./projectPreviews/'+previewImgComputed" class="projectPreviewImage" :alt="'preview image for'+ titleComputed" />
             <div class="previewImageLayer" id="previewImageBg"></div>
           </div>
         </div>
@@ -75,7 +75,7 @@ export default {
   },
   data() {
     return {
-      expanded: false,
+      expanded: true,
       projectSummariesY: null,
       previewImageYBase: null,
       previewImageYCurrent: null,
