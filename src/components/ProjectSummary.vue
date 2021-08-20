@@ -45,13 +45,18 @@
       </div>
       <div class="col-sm-6">
         <div class="projectImgPreviewWrapper">
-          <div class="projectImgWrapper" :id="imageId" :style="previewImagePerspectiveStyleComputed">
+          <div class="projectImgWrapper" :id="imageId">
             <div class="previewImageLayer" id="projectImagePinkLayer"></div>
             <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
             <img :src="'./projectPreviews/'+previewImgComputed" class="projectPreviewImage" :alt="'preview image for'+ titleComputed" />
             <div class="previewImageLayer" id="previewImageBg"></div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        Gallery
       </div>
     </div>
   </div>
@@ -76,6 +81,7 @@ export default {
   data() {
     return {
       expanded: true,
+      entranceAnimation: null,
       projectSummariesY: null,
       previewImageYBase: null,
       previewImageYCurrent: null,
@@ -85,8 +91,10 @@ export default {
     };
   },
   mounted(){
+    
+    this.initEntranceAnimation();
     console.log("window viewbox: ", window.innerHeight);
-    //console.log("projectSummariesY: ", this.$vnode.elm.parentNode.getBoundingClientRect().y);
+    console.log("projectSummariesY: ",this.project.title, this.$vnode.elm.parentNode.getBoundingClientRect().y);
   },
   computed: {
     titleComputed() {
@@ -135,23 +143,18 @@ export default {
   		return this.$vnode.elm.querySelector(selector);
   	},
     handleScroll(event, element){
-      if(this.previewImageYBase === 0) this.previewImageYBase = element.getBoundingClientRect().y;
 
-      let imageY = element.getBoundingClientRect().y;
-      let centralizedImageY = imageY + 400;
-      let bottomImageY = imageY - 500;
+      let imageY = element.getBoundingClientRect().top + window.scrollY - 800;
+      let pageScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      
+      console.log(this.project.title, "page scroll: ", pageScroll);
+      console.log(this.project.title, "projectSummariesY: ", imageY);
 
-      if(bottomImageY < this.previewImageYBase) {
-        // trigger animation
-        console.log(this.titleComputed + " time to trigger preview imgage animation");
-        this.computeImageEntrance();
+      if(!this.entranceAnimation.began && (pageScroll > imageY)) {
+        this.entranceAnimation.play();
+        console.log("TRIGGER ", this.project.title);
+        console.log("animation", this.entranceAnimation)
       }
-
-      // goes from -1 to 1 when the preview image is centered
-      let normalizedScroll = ((centralizedImageY - window.scrollY) / centralizedImageY) + 1;
-
-      if(normalizedScroll > 1) normalizedScroll = 1;
-      if(normalizedScroll < 0) normalizedScroll = 0;
     },
     computeImageEntrance(){
       this.previewImagePerspectiveStyle = {
@@ -159,20 +162,25 @@ export default {
         opacity: "1"
       }
     },
-    entranceAnimation(){
-      let timeline = new anime.timeline({
-
-      });
-
+    initEntranceAnimation(){
       /** TODO
        * animate an entrance for the preview images at a fixed pixel position.
        * Animate using anime to ease the effect of sliding up from below
        * in a perspective.
        */
-      let imageAnime = new anime({
+      this.entranceAnimation = new anime({
         targets: this.getEl("#"+this.imageId),
-        translateX: []
-      })
+        perspective: 1500,
+        translateY: [900, 250],
+        rotateX: [25, 50],
+        rotateY: [0, 13],
+        rotateZ: [-1, -16],
+        scale: [1.49, 1.5],
+        opacity: [0,1],
+        duration: 2300,
+        autoplay: false,
+        easing: 'easeOutExpo'
+      });
     },
     computeYOffset(scrollValue){
       let offsetScroll = 0;//Math.exp(scrollValue*0.01) - 100;
