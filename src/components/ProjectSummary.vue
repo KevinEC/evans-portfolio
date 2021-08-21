@@ -64,10 +64,26 @@
             transformOrigin="-1000px 0"
             class="projectGalleryWrapper"
             >
-            <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
-            <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
-            <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
-            <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+            <div class="projectGalleryImageWrapper">
+              <div class="previewImageLayer" id="projectImagePinkLayer"></div>
+              <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
+              <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+            </div>
+            <div class="projectGalleryImageWrapper">
+              <div class="previewImageLayer" id="projectImagePinkLayer"></div>
+              <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
+              <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+            </div>
+            <div class="projectGalleryImageWrapper">
+              <div class="previewImageLayer" id="projectImagePinkLayer"></div>
+              <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
+              <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+            </div>
+            <div class="projectGalleryImageWrapper">
+              <div class="previewImageLayer" id="projectImagePinkLayer"></div>
+              <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
+              <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+            </div>
           </kinesis-element>
         </kinesis-container>
       </div>
@@ -316,25 +332,6 @@ export default {
       width: 80%;
       position: relative;
       opacity: 0;
-
-      .previewImageLayer{
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-
-      #projectImagePinkLayer{
-        z-index: -3;
-        background-color: rgba(#ebd8d8, 1);
-        mix-blend-mode: multiply;
-      }
-
-      #previewImageWhiteLayer{
-        z-index: -4;
-        background-color: rgba(white, 0.56);
-      }
     
       .projectPreviewImage{
         z-index: -5;
@@ -390,23 +387,44 @@ export default {
       display: flex;
       flex-flow: row nowrap;
       overflow-x: visible;
-  
-      .projectGalleryImage{
-        width: 50%;
-        height: auto;
-        object-fit: contain;
-        margin-right: 5%;
-        transform: translateX(-160%);
-        transition: transform ease-out 0.15s;
+
+      .projectGalleryImageWrapper{
+        width: 100%;
         position: relative;
-        
+        transform: translateX(-160%);
+        margin-right: 5%;
+        transition: transform ease-out 0.15s;
 
         &:hover{
           transform: translateX(-160%) rotateX(0deg) rotateZ(0deg) rotateY(0deg) translateY(-100px) scale(1.1);
         }
       }
   
+      .projectGalleryImage{
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+      }
+  
     }
+  }
+  .previewImageLayer{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  #projectImagePinkLayer{
+    z-index: -3;
+    background-color: rgba(#ebd8d8, 1);
+    mix-blend-mode: multiply;
+  }
+
+  #previewImageWhiteLayer{
+    z-index: -4;
+    background-color: rgba(white, 0.56);
   }
 }
 
