@@ -56,7 +56,20 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-        Gallery
+        <kinesis-container class="projectGalleryKinesisContainer">
+          <kinesis-element 
+            type="translate"
+            axis="x"
+            strength="1000"
+            transformOrigin="-1000px 0"
+            class="projectGalleryWrapper"
+            >
+            <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+            <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+            <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+            <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+          </kinesis-element>
+        </kinesis-container>
       </div>
     </div>
   </div>
@@ -211,7 +224,8 @@ export default {
 
 <style lang="scss">
 .projectSummaryRoot {
-  margin: 50rem 0;
+  margin: 10rem 0;
+  margin-bottom: 30rem;
 
   .projectDot {
     display: block;
@@ -291,29 +305,17 @@ export default {
     display: flex;
     justify-content: flex-end;
     position: relative;
-    z-index: -1;
+    transition: transform ease-out 0.25s;
+    
+    &:hover{
+      z-index: 10;
+      transform: scale(1.01);
+    }
 
     .projectImgWrapper{
       width: 80%;
       position: relative;
       opacity: 0;
-      //transform: perspective(1500px) rotateX(72deg) rotateZ(-16deg) rotateY(4deg) scale(1.5) translateY(80vh) translateX(-100px);
-      // perspective(1500px) rotateX(50deg) rotateZ(-16deg) rotateY(13deg) scale(1.5) translateY(100vh);
-      //transition: transform 0.8s cubic-bezier(0.07, 0.99, 0.4, 0.99);
-
-      @keyframes entrance {
-        0%{
-          transform: perspective(1500px) rotateX(72deg) rotateZ(-16deg) rotateY(4deg) scale(1.5) translateY(100vh) translateX(-100px);
-        }
-
-        75%{
-          transform: perspective(1500px) rotateX(60deg) rotateZ(-16deg) rotateY(8deg) scale(1.5) translateY(300px) translateX(-20px);
-        }
-
-        100%{
-          transfrom: perspective(1500px) rotateX(50deg) rotateZ(-16deg) rotateY(13deg) scale(1.5) translateY(250px);
-        }
-      }
 
       .previewImageLayer{
         width: 100%;
@@ -378,6 +380,32 @@ export default {
       display: inline;
       color: black;
       font-size: 1.2rem;
+    }
+  }
+
+  .projectGalleryKinesisContainer{
+    
+    .projectGalleryWrapper{
+      margin-top: 120px;
+      display: flex;
+      flex-flow: row nowrap;
+      overflow-x: visible;
+  
+      .projectGalleryImage{
+        width: 50%;
+        height: auto;
+        object-fit: contain;
+        margin-right: 5%;
+        transform: translateX(-160%);
+        transition: transform ease-out 0.15s;
+        position: relative;
+        
+
+        &:hover{
+          transform: translateX(-160%) rotateX(0deg) rotateZ(0deg) rotateY(0deg) translateY(-100px) scale(1.1);
+        }
+      }
+  
     }
   }
 }
