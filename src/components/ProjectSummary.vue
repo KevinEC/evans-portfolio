@@ -1,9 +1,9 @@
 <template>
-  <div class="projectSummaryRoot" v-scroll="handleScroll">
+  <div class="projectSummaryRoot" :class="collapseMarginComputed" v-scroll="handleScroll">
     <div class="row" :style="wrapperYOffsetStyleComputed">
-      <div class="col-sm-6">
+      <div class="col-sm-6 projectContentCol">
         <div class="projectDot"></div>
-        <kinesis-container :perspective="500">
+        <kinesis-container  :perspective="500"> <!-- temp disable of hover interaction -->
           <kinesis-element type="depth" :strength="10" axis="x" transformOrigin="50% 50%">
             <div class="projectTitleWrapper">
               <h1
@@ -16,7 +16,7 @@
                 :aria-controls="toggleId"
               >{{this.titleComputed}}</h1>
               <kinesis-container event="scroll" class="kinesisWrapper">
-                <kinesis-element class="kinesisWrapper" type="translate" :strength="-50">
+                <kinesis-element class="kinesisWrapper" type="translate" :strength="-70">
                   <div class="projectTitleBg"></div>
                 </kinesis-element>
               </kinesis-container>
@@ -40,7 +40,15 @@
           <p class="projectSummary">{{ descriptionComputed }}</p>
         </div>
         <div class="demoLinkWrapper" :class="showComputed">
-          <a href="#">DEMO</a>
+          <a @click="galleryToggle"
+            data-toggle="collapse"
+            :href="'#'+galleryToggleId"
+            role="button"
+            aria-expanded="true"
+            :aria-controls="galleryToggleId"
+          >
+          Pictures</a>
+          <span class="demoLinkUnderline"></span>
         </div>
       </div>
       <div class="col-sm-6">
@@ -56,11 +64,11 @@
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <kinesis-container class="projectGalleryKinesisContainer">
+        <kinesis-container class="projectGalleryKinesisContainer collapse" :id="galleryToggleId">
           <kinesis-element 
             type="translate"
             axis="x"
-            strength="1000"
+            :strength="1000"
             transformOrigin="-1000px 0"
             class="projectGalleryWrapper"
             >
@@ -68,21 +76,25 @@
               <div class="previewImageLayer" id="projectImagePinkLayer"></div>
               <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
               <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+              <div class="previewImageLayer" id="previewImageBg"></div>
             </div>
             <div class="projectGalleryImageWrapper">
               <div class="previewImageLayer" id="projectImagePinkLayer"></div>
               <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
               <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+              <div class="previewImageLayer" id="previewImageBg"></div>
             </div>
             <div class="projectGalleryImageWrapper">
               <div class="previewImageLayer" id="projectImagePinkLayer"></div>
               <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
               <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+              <div class="previewImageLayer" id="previewImageBg"></div>
             </div>
             <div class="projectGalleryImageWrapper">
               <div class="previewImageLayer" id="projectImagePinkLayer"></div>
               <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
               <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+              <div class="previewImageLayer" id="previewImageBg"></div>
             </div>
           </kinesis-element>
         </kinesis-container>
@@ -93,6 +105,7 @@
 
 <script>
 import anime from "animejs";
+import $ from 'jquery'
 import { KinesisContainer, KinesisElement } from "vue-kinesis";
 
 export default {
@@ -110,6 +123,8 @@ export default {
   data() {
     return {
       expanded: true,
+      galleryExpanded: false,
+      expandGalleryToo: false,
       entranceAnimation: null,
       projectSummariesY: null,
       previewImageYBase: null,
@@ -122,8 +137,6 @@ export default {
   mounted(){
     
     this.initEntranceAnimation();
-    console.log("window viewbox: ", window.innerHeight);
-    console.log("projectSummariesY: ",this.project.title, this.$vnode.elm.parentNode.getBoundingClientRect().y);
   },
   computed: {
     titleComputed() {
@@ -147,8 +160,17 @@ export default {
     showComputed() {
       if (this.expanded) return "show";
     },
+    showGalleryComputed() {
+      if (!this.galleryExpanded) return "show";
+    },
+    collapseMarginComputed(){
+      if(!this.expanded && !this.galleryExpanded) return "collapsedMargin"
+    },
     toggleId() {
       return "dropdown" + this._uid;
+    },
+    galleryToggleId() {
+      return "gallery" + this._uid;
     },
     imageId(){
       return "image" + this._uid;
@@ -167,6 +189,20 @@ export default {
   methods: {
     toggle() {
       this.expanded = !this.expanded;
+      if(!this.expanded) {
+        //save state before collapse
+        if(this.galleryExpanded) this.expandGalleryToo = true;
+        $("#"+this.galleryToggleId).collapse('hide');
+        this.galleryExpanded = false;
+      }
+      else if(this.expandGalleryToo){
+        $("#"+this.galleryToggleId).collapse('show');
+        this.galleryExpanded = true;
+        this.expandGalleryToo = false;
+      } 
+    },
+    galleryToggle() {
+      this.galleryExpanded = !this.galleryExpanded;
     },
     getEl: function (selector) {
   		return this.$vnode.elm.querySelector(selector);
@@ -175,14 +211,9 @@ export default {
 
       let imageY = element.getBoundingClientRect().top + window.scrollY - 800;
       let pageScroll = document.documentElement.scrollTop || document.body.scrollTop;
-      
-      console.log(this.project.title, "page scroll: ", pageScroll);
-      console.log(this.project.title, "projectSummariesY: ", imageY);
 
       if(!this.entranceAnimation.began && (pageScroll > imageY)) {
         this.entranceAnimation.play();
-        console.log("TRIGGER ", this.project.title);
-        console.log("animation", this.entranceAnimation)
       }
     },
     computeImageEntrance(){
@@ -192,11 +223,6 @@ export default {
       }
     },
     initEntranceAnimation(){
-      /** TODO
-       * animate an entrance for the preview images at a fixed pixel position.
-       * Animate using anime to ease the effect of sliding up from below
-       * in a perspective.
-       */
       this.entranceAnimation = new anime({
         targets: this.getEl("#"+this.imageId),
         perspective: 1500,
@@ -243,6 +269,8 @@ export default {
   margin: 10rem 0;
   margin-bottom: 30rem;
 
+  transition: margin-bottom ease-out 0.15s;
+
   .projectDot {
     display: block;
     position: absolute;
@@ -260,6 +288,8 @@ export default {
     display: flex;
     position: relative;
     width: 65%;
+    // transform-origin: 50% 50%;
+    // transform: rotateY(9.97684deg) translate3d(0px, 0px, 20px);
 
     .projectTitle {
       color: transparent;
@@ -295,7 +325,9 @@ export default {
       }
     }
   }
-
+  .projectContentCol{
+    z-index: 1;
+  }
   .projectContent {
     padding-top: 1rem;
 
@@ -318,14 +350,27 @@ export default {
     margin-top: -250px;
     margin-left: -200px;
     width: 100%;
+    //z-index: -1;
     display: flex;
     justify-content: flex-end;
     position: relative;
     transition: transform ease-out 0.25s;
     
     &:hover{
-      z-index: 10;
-      transform: scale(1.01);
+
+      .projectImgWrapper{
+        .projectPreviewImage{
+          filter: saturate(1) blur(0px);
+        }
+      }
+
+      #projectImagePinkLayer{
+        background-color: rgba(#ebd8d8, 0);
+      }
+
+      #previewImageWhiteLayer{
+        background-color: rgba(white, 0);
+      }
     }
 
     .projectImgWrapper{
@@ -341,13 +386,6 @@ export default {
         height: auto;
         object-fit: contain;
       }
-
-      #previewImageBg{
-        z-index: -6;
-        top: 5px;
-        left: -5px;
-        background-color: var(--applered);
-      }
     }
   }
 
@@ -359,14 +397,14 @@ export default {
       display: none;
     }
 
-    &::before {
-      content: "";
+    .demoLinkUnderline {
       display: block;
       position: absolute;
       bottom: -10px;
       height: 6px;
       width: 100%;
       background-color: var(--applered);
+      transition: bottom ease-out 0.15s;
     }
   }
 
@@ -374,9 +412,21 @@ export default {
     width: fit-content;
 
     a {
-      display: inline;
+      display: block;
       color: black;
       font-size: 1.2rem;
+    }
+
+    a:hover{
+      color: var(--applered);
+      text-decoration: none;
+    }
+
+    &:hover{
+
+      .demoLinkUnderline{
+        bottom: -8px;
+      }
     }
   }
 
@@ -389,21 +439,44 @@ export default {
       overflow-x: visible;
 
       .projectGalleryImageWrapper{
-        width: 100%;
         position: relative;
-        transform: translateX(-160%);
-        margin-right: 5%;
-        transition: transform ease-out 0.15s;
+        transform: translate3d(0, 0, 0) translateX(-160%) ;
+        margin-right: 10%;
+        transition: transform cubic-bezier(0.35, 0.76, 0.36, 1) 0.15s;
 
         &:hover{
-          transform: translateX(-160%) rotateX(0deg) rotateZ(0deg) rotateY(0deg) translateY(-100px) scale(1.1);
+          transform: translate3d(0, 0, 0) translateX(-160%) rotateX(0deg) rotateZ(0deg) rotateY(0deg) translateY(-100px) scale(1.3);
+          //margin-right: 10%;
+
+          .projectGalleryImage{
+            filter: saturate(1) blur(0px);
+          }
+
+          #projectImagePinkLayer{
+            background-color: rgba(#ebd8d8, 0);
+          }
+
+          #previewImageWhiteLayer{
+            background-color: rgba(white, 0);
+          }
+          #previewImageBg{
+            top: 0px;
+            left: 0px;
+            transform: scale(0.9);
+            background-color: var(--applered);
+          }
         }
       }
   
       .projectGalleryImage{
-        width: 100%;
+        width: 500px;
         height: auto;
+        backface-visibility: hidden;
         object-fit: contain;
+        z-index: -5;
+        position: relative;
+        filter: saturate(0) blur(0px);
+        transition: filter ease-out 0.15s;
       }
   
     }
@@ -414,6 +487,9 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
+    transition: background-color ease-out 0.35s,
+                top ease-out 0.15s,
+                left ease-out 0.15s,;
   }
 
   #projectImagePinkLayer{
@@ -426,6 +502,12 @@ export default {
     z-index: -4;
     background-color: rgba(white, 0.56);
   }
+  #previewImageBg{
+    z-index: -6;
+    top: 5px;
+    left: -5px;
+    background-color: var(--applered);
+  }
 }
 
 // ugly hard coding for first projectsummary 
@@ -433,5 +515,11 @@ export default {
   margin: 0;
   margin-top: 5rem;
   margin-bottom: 50rem;
+}
+.projectSummaryRoot.collapsedMargin:nth-child(3){
+  margin-bottom: 40rem;
+}
+.projectSummaryRoot.collapsedMargin{
+  margin-bottom: 25rem;
 }
 </style>
