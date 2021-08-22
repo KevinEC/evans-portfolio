@@ -222,7 +222,7 @@ export default {
 		.vertical-line-wrapper{
 			position: absolute;
 			bottom: 100px;
-			right: 200px;
+			right: 500px;
 			display: flex;
 			justify-content: center;
 			z-index: 0;
