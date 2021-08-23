@@ -5,7 +5,7 @@
 				<div class="col-xs-12 navmenu-wrapper">
 					<navbar-logo ref="logo"></navbar-logo>
 					<ul class="navmenu">
-						<li><a href="#">About</a></li>
+						<!-- <li><a href="#">About</a></li> -->
 					</ul>
 				</div>
 			</div>
