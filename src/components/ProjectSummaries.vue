@@ -106,7 +106,7 @@
 
   .galleryLine{
     position: absolute;
-    right: 227px;
+    right: 527px;
     top: -180px;
     height: 100%;
     width: 1px;
