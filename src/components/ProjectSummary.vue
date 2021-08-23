@@ -68,32 +68,17 @@
           <kinesis-element 
             type="translate"
             axis="x"
-            :strength="1000"
+            :strength="galleryScrollStrength"
             transformOrigin="-1000px 0"
             class="projectGalleryWrapper"
             >
-            <div class="projectGalleryImageWrapper">
+            <div v-for="(image,i) in galleryImagesComputed"
+                :key="i"
+                class="projectGalleryImageWrapper"
+              >
               <div class="previewImageLayer" id="projectImagePinkLayer"></div>
               <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
-              <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
-              <div class="previewImageLayer" id="previewImageBg"></div>
-            </div>
-            <div class="projectGalleryImageWrapper">
-              <div class="previewImageLayer" id="projectImagePinkLayer"></div>
-              <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
-              <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
-              <div class="previewImageLayer" id="previewImageBg"></div>
-            </div>
-            <div class="projectGalleryImageWrapper">
-              <div class="previewImageLayer" id="projectImagePinkLayer"></div>
-              <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
-              <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
-              <div class="previewImageLayer" id="previewImageBg"></div>
-            </div>
-            <div class="projectGalleryImageWrapper">
-              <div class="previewImageLayer" id="projectImagePinkLayer"></div>
-              <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
-              <img class="projectGalleryImage" :src="'./projectPreviews/'+previewImgComputed"/>
+              <img class="projectGalleryImage" :src="'./projectPreviews/'+galleryPathComputed+'/'+image"/>
               <div class="previewImageLayer" id="previewImageBg"></div>
             </div>
           </kinesis-element>
@@ -156,6 +141,16 @@ export default {
     },
     previewImgComputed(){
       if (this.project) return this.project.previewImg;
+    },
+    galleryPathComputed(){
+      if (this.project) return this.project.galleryPath;
+    },
+    galleryImagesComputed(){
+      if (this.project) return this.project.gallery;
+    },
+    galleryScrollStrength(){
+      if(this.galleryImagesComputed.length > 5) return 2000
+      else return 1000;
     },
     showComputed() {
       if (this.expanded) return "show";
@@ -442,6 +437,7 @@ export default {
         position: relative;
         transform: translate3d(0, 0, 0) translateX(-160%) ;
         margin-right: 10%;
+        height: 100%;
         transition: transform cubic-bezier(0.35, 0.76, 0.36, 1) 0.15s;
 
         &:hover{
