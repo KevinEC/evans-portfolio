@@ -2,13 +2,15 @@
   <div class="projectSummaryRoot" :class="collapseMarginComputed" v-scroll="handleScroll">
     <div class="row" :style="wrapperYOffsetStyleComputed">
       <div class="col-sm-6 projectContentCol">
-        <div class="projectDot"></div>
-        <kinesis-container  :perspective="500"> <!-- temp disable of hover interaction -->
+        <div class="projectDot" :class="projectDotExpandedComputed"></div>
+        <kinesis-container  :perspective="500">
           <kinesis-element type="depth" :strength="10" axis="x" transformOrigin="50% 50%">
             <div class="projectTitleWrapper">
               <h1
                 class="projectTitle"
                 @click="toggle"
+                @mouseover="titleHover"
+                @mouseleave="titleHover"
                 data-toggle="collapse"
                 :href="'#'+toggleId"
                 role="button"
@@ -116,7 +118,9 @@ export default {
       previewImageYCurrent: null,
       wrapperYOffsetStyle: {},
       xOffsetStyle: {},
-      previewImagePerspectiveStyle: null
+      previewImagePerspectiveStyle: null,
+      titleHovered: false,
+      holdFillState: false,
     };
   },
   mounted(){
@@ -138,6 +142,22 @@ export default {
     },
     descriptionComputed() {
       if (this.project) return this.project.description;
+    },
+    projectDotExpandedComputed(){
+      if(!this.holdFillState && this.expanded && this.titleHovered) {
+        console.log("preview min. remove fill when expanded")
+        return "" // if project expanded and u hover preview closed state e.g not fill
+      }
+      else if(!this.holdFillState && !this.expanded && this.titleHovered) {
+        console.log("preview expanded. fill when collapsed")
+        return "fill"
+      }
+      else if (this.expanded) {
+        return "fill";
+      }
+      else if(!this.expanded){
+        return "";
+      } 
     },
     previewImgComputed(){
       if (this.project) return this.project.previewImg;
@@ -194,7 +214,17 @@ export default {
         $("#"+this.galleryToggleId).collapse('show');
         this.galleryExpanded = true;
         this.expandGalleryToo = false;
-      } 
+      }
+      this.holdFillState = true;
+    },
+    titleHover(e){
+      console.log("holdFillState(before): ", this.holdFillState)
+      if(e.type == "mouseleave") {
+        this.titleHovered = false;
+        this.holdFillState = false;
+      }
+      else if (e.type == "mouseover") this.titleHovered = true;
+      console.log("expanded: ", this.expanded, " titleHovered: ", this.titleHovered);
     },
     galleryToggle() {
       this.galleryExpanded = !this.galleryExpanded;
@@ -277,6 +307,13 @@ export default {
     border: 6px solid white;
     border-radius: 100%;
     left: -74px;
+    box-shadow: 0 0 10px var(--lightpink);
+
+    transition: border ease-out 0.15s;
+
+    &.fill {
+      border: 1px solid white;
+    }
   }
 
   .projectTitleWrapper {
@@ -390,6 +427,7 @@ export default {
 
     a {
       display: none;
+      font-family: "Archivo Black"
     }
 
     .demoLinkUnderline {

@@ -30,7 +30,7 @@ export default {
   	},
   	backgroundColorComputed: function () {
   		return {
-  			backgroundColor: `rgba(253, 253, 248, ${this.opacityComputed})`
+  			backgroundColor: `rgba(248, 248, 244, ${this.opacityComputed})`
   		}
   	},
   	opacityComputed: function () {

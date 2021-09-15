@@ -43,9 +43,9 @@
           },
           {
             title: "Conference Web App",
-            company: "Fullstack Developer / UX Designer",
+            company: "Concept Work",
             year: "2020",
-            role: "UI Designer / Graphic Designer / Social Media Manager ",
+            role: "Fullstack Developer / UX Designer",
             description: "In the project The Web Conference a soft friendly design language was developed to create an inviting sensation. While keeping elements simple and straight forward to maintain a professional look to respect the conference context. The website contains functionality to ask the speaker questions live. When designing this functionality focus was put on accessibility and keyboard navigation as to avoid the interaction to become disruptive when listening. The main focus of the this website was to guide the user to this functionality and therefore preview links are presented in the landing page hero element which takes the user to the events page.",
             previewImg: 'home_header.png',
             galleryPath: 'conference',
