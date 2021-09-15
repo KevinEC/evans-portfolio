@@ -1,21 +1,26 @@
 <template>
   <div id="app">
-    <BaseHome>
-      
-    </BaseHome>
+    <base-navbar></base-navbar>
+    <router-view v-slot="{ Component }">
+      <component :is="Component" />
+    </router-view>
+    <base-footer></base-footer>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import "./App.scss"
+import BaseNavbar from "./components/BaseNavbar";
+import BaseFooter from "./components/BaseFooter";
 
-import BaseHome from './components/BaseHome.vue'
+
 
 export default {
   name: 'App',
   components: {
-    BaseHome
+    BaseNavbar,
+    BaseFooter,
   }
 }
 </script>

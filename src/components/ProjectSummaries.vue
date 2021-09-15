@@ -3,7 +3,7 @@
     <div class="projectsLine"></div>
     <div class="galleryLine"></div>
     <project-summary 
-      v-for="(project, i) in projects"
+      v-for="(project, i) in projectsComputed"
       :key="i"
       :project="project"
     />
@@ -85,8 +85,16 @@
         ]
       }
     },
-    mounted(){
-      
+    computed: {
+      projectsComputed(){
+        let projects =  this.projects.map((project,i) => {
+          if(i === 0) project.initExpanded = true;
+          else project.initExpanded = false;
+          return project;
+        })
+        console.log("projects after processing", projects);
+        return projects;
+      }
     }
   }
 </script>

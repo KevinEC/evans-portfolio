@@ -14,7 +14,6 @@
                 data-toggle="collapse"
                 :href="'#'+toggleId"
                 role="button"
-                aria-expanded="true"
                 :aria-controls="toggleId"
               >{{this.titleComputed}}</h1>
               <kinesis-container event="scroll" class="kinesisWrapper">
@@ -26,7 +25,7 @@
           </kinesis-element>
         </kinesis-container>
 
-        <div class="projectContent collapse show" :id="toggleId">
+        <div class="projectContent collapse" :class="initExpanded" :id="toggleId">
           <h4 class="projectInfo">
             <span class="projectInfoLabel">Company</span>
             {{ this.companyComputed }}
@@ -109,7 +108,7 @@ export default {
   },
   data() {
     return {
-      expanded: true,
+      expanded: false,
       galleryExpanded: false,
       expandGalleryToo: false,
       entranceAnimation: null,
@@ -125,6 +124,7 @@ export default {
   },
   mounted(){
     this.initEntranceAnimation();
+    this.expandOnInit();
   },
   computed: {
     titleComputed() {
@@ -141,6 +141,9 @@ export default {
     },
     descriptionComputed() {
       if (this.project) return this.project.description;
+    },
+    initExpanded(){
+      if(this.project && this.project.initExpanded) return "show";
     },
     projectDotExpandedComputed(){
       if(!this.holdFillState && this.expanded && this.titleHovered) {
@@ -217,16 +220,19 @@ export default {
       this.holdFillState = true;
     },
     titleHover(e){
-      console.log("holdFillState(before): ", this.holdFillState)
       if(e.type == "mouseleave") {
         this.titleHovered = false;
         this.holdFillState = false;
       }
       else if (e.type == "mouseover") this.titleHovered = true;
-      console.log("expanded: ", this.expanded, " titleHovered: ", this.titleHovered);
     },
     galleryToggle() {
       this.galleryExpanded = !this.galleryExpanded;
+    },
+    expandOnInit(){
+      if(this.project.initExpanded){
+        this.expanded = true;
+      }
     },
     getEl: function (selector) {
   		return this.$vnode.elm.querySelector(selector);
@@ -261,29 +267,6 @@ export default {
         easing: 'easeOutExpo'
       });
     },
-    computeYOffset(scrollValue){
-      let offsetScroll = 0;//Math.exp(scrollValue*0.01) - 100;
-      this.wrapperYOffsetStyle = {
-        transform: `translateY(${offsetScroll}px)`,
-      }
-    },
-    computeXOffset(scrollValue){
-      let offsetScroll = Math.exp(scrollValue*0.01) - 100;
-      this.xOffsetStyle = {
-        transform: `translateX(-${offsetScroll}px)`,
-      }
-    },
-    clampInterpolation(value, min, max){
-      if(value < min) return min;
-      if(value > max) return max;
-      return value;
-    },
-    interpolate(progress, from, to){
-      return from + (to-from)*progress;
-    },
-    easeValue(val){
-      return val/(2-val);
-    }
   }
 };
 </script>

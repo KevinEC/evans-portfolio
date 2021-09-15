@@ -1,8 +1,8 @@
 <template>
-	<div class="navBarLogoRoot" :class="collapsedStyleComputed">
+	<router-link to="/" class="navBarLogoRoot" :class="collapsedStyleComputed">
 		<span class="firstname">K<span class="firstnameFade">evin</span></span>
 		<span class="lastname">Evans</span>
-	</div>
+	</router-link>
 </template>
 
 <script>
@@ -71,14 +71,31 @@ export default {
 	flex-flow: column;
 	padding: 20px 0;
 	position: relative;
+	color: var(--text-color);
 
 	transition: padding-bottom 0.1s var(--easeOutQuad);
+
+	&:hover{
+		color: var(--text-color);
+		text-decoration: none;
+
+		.firstname{
+			letter-spacing: 4px;
+		}
+
+		.lastname{
+			margin-left: 29px;
+			letter-spacing: 10px;
+		}
+	}
 
 	.firstname, .lastname{
 		font-family: "Archivo Black";
 		font-size: $h3-font-size;
 		line-height: 30px;
 		text-transform: uppercase;
+
+		transition: letter-spacing 0.1s var(--easeOutQuad)
 	}
 	.firstname{
 		letter-spacing: 6px;
@@ -91,12 +108,19 @@ export default {
 		color: transparent;
 		-webkit-text-stroke: 2px black;
 
-		transition: letter-spacing 0.4s var(--easeOutExpo);
+		transition: letter-spacing 0.4s var(--easeOutExpo),
+					margin-left 0.1s var(--easeOutExpo);
 	}
 }
 
 .navBarLogoRoot.collapsed{
 		padding-bottom: 0;
+
+		&:hover{
+			.lastname{
+				letter-spacing: 5px;
+			}
+		}
 
 		.lastname{
 			letter-spacing: 6px;

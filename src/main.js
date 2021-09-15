@@ -1,8 +1,14 @@
 import Vue from 'vue'
+import VueRouter from 'vue-router'
 import App from './App.vue'
 import bootstrap from "bootstrap"
 
 Vue.config.productionTip = false
+
+Vue.use(VueRouter)
+
+import BaseHome from './components/BaseHome.vue'
+import BaseAbout from './components/BaseAbout.vue'
 
 // Directive to use on scroll listener
 Vue.directive('scroll', {
@@ -16,6 +22,17 @@ Vue.directive('scroll', {
 	}
 });
 
+const routes = [
+	{ path: '/', component: BaseHome },
+	{ path: '/bar', component: BaseAbout }
+]
+
+const router = new VueRouter({
+	routes
+  })
+
 new Vue({
-  render: h => h(App),
+	router,
+  	render: h => h(App),
 }).$mount('#app');
+
