@@ -6,15 +6,16 @@
 // colors
 :root{
 --dullpaper: #f8f8f4;
---navbar-color: #282828;
 --text-color: #383838;
 
 --offBlack: #1b1b1b;
+--darkgrey: #282828;
 --offWhite: #d4d4d4;
 --lightpink: #f5e3e2;
 --dullpink: #e4d2d1;
 --applered: #e56c69;
 
+--navbar-color: var(--darkgrey);
 --logo-color: var(--text-color);
 --background-color: var(--dullpaper);
 --about-bg: #383838;

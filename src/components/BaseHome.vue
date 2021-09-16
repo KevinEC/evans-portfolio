@@ -40,6 +40,11 @@ export default {
   data() {
     return {};
   },
+  mounted(){
+	let dullpaper = getComputedStyle(document.documentElement).getPropertyValue("--dullpaper")
+    document.documentElement.style.setProperty("--background-color", dullpaper)
+	  
+  },
   methods: {
 	beforeEnter(){
 

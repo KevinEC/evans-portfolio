@@ -71,7 +71,7 @@ export default {
 	flex-flow: column;
 	padding: 20px 0;
 	position: relative;
-	color: var(--text-color);
+	color: var(--logo-color);
 
 	transition: padding-bottom 0.1s var(--easeOutQuad);
 

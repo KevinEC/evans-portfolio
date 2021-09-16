@@ -25,14 +25,15 @@
     padding: 50px 6%;
     padding-top: 70px;
     position: relative;
+    z-index: 1;
 
     .footerSlantElement{
         background-color: var(--offBlack);
         height: 300px;
         position: absolute;
         z-index: -1;
-        width: 115vw;
-        margin-left: -10vw;
+        width: 99vw;
+        margin-left: -83px;
         top: -40px;
         transform: rotate(3deg);
     }
