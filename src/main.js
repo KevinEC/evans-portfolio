@@ -23,8 +23,8 @@ Vue.directive('scroll', {
 });
 
 const routes = [
-	{ path: '/', component: BaseHome },
-	{ path: '/bar', component: BaseAbout }
+	{ path: '/', name:"home", component: BaseHome },
+	{ path: '/about', name:"about", component: BaseAbout }
 ]
 
 const router = new VueRouter({

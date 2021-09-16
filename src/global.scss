@@ -9,14 +9,15 @@
 --navbar-color: #282828;
 --text-color: #383838;
 
---offBlack: var(--text-color);
+--offBlack: #1b1b1b;
 --offWhite: #d4d4d4;
 --lightpink: #f5e3e2;
 --dullpink: #e4d2d1;
 --applered: #e56c69;
 
+--logo-color: var(--text-color);
 --background-color: var(--dullpaper);
---about-bg: #292929;
+--about-bg: #383838;
 --nav-background: rgba(0,0,0,0);
 
 // transitions
@@ -31,4 +32,13 @@ body{
 
 .animation-clip{
 	overflow: hidden;
+}
+
+.util-outline{
+	-webkit-text-stroke: 2px black;
+	color: transparent;
+}
+.util-outline-red{
+	-webkit-text-stroke: 2px var(--applered);
+	color: transparent;
 }

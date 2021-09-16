@@ -76,7 +76,7 @@ export default {
 	transition: padding-bottom 0.1s var(--easeOutQuad);
 
 	&:hover{
-		color: var(--text-color);
+		color: var(--logo-color);
 		text-decoration: none;
 
 		.firstname{
@@ -106,7 +106,7 @@ export default {
 		letter-spacing: 16px;
 		margin-left: 31px;
 		color: transparent;
-		-webkit-text-stroke: 2px black;
+		-webkit-text-stroke: 2px var(--logo-color);
 
 		transition: letter-spacing 0.4s var(--easeOutExpo),
 					margin-left 0.1s var(--easeOutExpo);
@@ -125,5 +125,14 @@ export default {
 		.lastname{
 			letter-spacing: 6px;
 		}
+}
+
+.navBarLogoRoot.dark{
+	.firstname{
+		-webkit-text-stroke: 2px white;
+	}
+	.lastname{
+		-webkit-text-stroke: 2px white;
+	}
 }
 </style>

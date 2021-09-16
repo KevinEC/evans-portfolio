@@ -1,17 +1,17 @@
 <template>
     <div class="baseFooterRoot">
         <div class="footerSlantElement"></div>
-        <h2 class="footerTitleText">Let's Get in Touch</h2>
-        <p class="footerBodyText">Curious about my work, see if I'm a fit for your project or just talk over a cup of coffe? 
-            Send me an text or give me a call at 0762328355 or reach me on any other platform.
-            Still curious? Take a look at my <router-link to="/about">about page</router-link>.
+        <h2 class="footerTitleText">Let's<span class="util-outline-red"> Get in Touch</span></h2>
+        <p class="footerBodyText">Wan't to discuss your next idea, have a chat over a cup of joe or learn more about how I'll fit into your dream team?
+            Reach me at <a href="mailto:k.evans.c@gmail.com" class="footerContact">k.evans.c@gmail.com</a> or take a look at any of the links below.
         </p>
         <div class="footerContactInformation">
             <a href="#" class="footerContact">LinkedIn</a>
-            <a href="mailto:k.evans.c@gmail.com" class="footerContact">Mail</a>
+            <a href="#" class="footerContact">Github</a>
             <a href="#" class="footerContact">Instagram</a>
             <a href="#" class="footerContact">CV</a>
         </div>
+        <p class="footerBodyText">Still curious? Take a look at my <router-link class="router-link" to="/about">about page</router-link>.</p>
     </div>
 </template>
 
@@ -21,13 +21,13 @@
 
 <style lang="scss">
 .baseFooterRoot{
-    background-color: black;
+    background-color: var(--offBlack);
     padding: 50px 6%;
-    padding-bottom: 80px;
+    padding-top: 70px;
     position: relative;
 
     .footerSlantElement{
-        background-color: black;
+        background-color: var(--offBlack);
         height: 300px;
         position: absolute;
         z-index: -1;
@@ -38,14 +38,16 @@
     }
 
     .footerTitleText{
-        font-size: 70px;
+        font-size: 80px;
         text-transform: uppercase;
         color: var(--applered)
     }
 
     .footerBodyText{
         color: var(--offWhite);
-        width: 60%;
+        padding-top: 20px;
+        width: 45%;
+        line-height: 29px;
 
         a{
             color: var(--offWhite);
@@ -56,11 +58,17 @@
                 color: var(--applered)
             }
         }
+
+        .router-link{
+            color: var(--applered);
+            font-weight: 600;
+        }
     }
 
     .footerContactInformation{
         display: flex;
         flex-flow: row nowrap;
+        padding: 20px 0;
 
         .footerContact{
             margin-right: 90px;
@@ -68,7 +76,8 @@
             text-transform: uppercase;
             
             &:hover{
-                color: var(--applered)
+                color: var(--applered);
+                text-decoration: none;
             }
         }
     }

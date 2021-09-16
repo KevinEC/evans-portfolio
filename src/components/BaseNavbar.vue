@@ -26,6 +26,9 @@ export default {
 		"vuenime": Vuenime
 	},
   name: 'BaseNavbar',
+  mounted(){
+	  console.log("HEl", this.$route);
+  },
   computed: {
   	collapsedComputed: function () {
   		return this.collapsed;
@@ -35,6 +38,9 @@ export default {
   			backgroundColor: `rgba(248, 248, 244, ${this.opacityComputed})`
   		}
   	},
+	routeNameComputed(){
+		return this.$route.name;
+	},
   	opacityComputed: function () {
   		return this.opacity.prop;
   	},
@@ -59,14 +65,22 @@ export default {
   			this.animateOpacity(1).play();
   			this.$refs.logo.animateCollapse("normal").play();
 			}
-		},
-		triggerExpand: function (newCollapsed, oldCollapsed) {
+	},
+	triggerExpand: function (newCollapsed, oldCollapsed) {
   		if(newCollapsed && newCollapsed != oldCollapsed){
-				this.collapsed = false;
+			this.collapsed = false;
   			this.animateOpacity(1).play();
   			this.$refs.logo.animateCollapse("reverse").play();
-			}
 		}
+	},
+	routeNameComputed(name){
+		  let dark = getComputedStyle(document.documentElement).getPropertyValue('--text-color');
+		  let light = "white";
+		  if(name == "about") document.documentElement.style.setProperty("--logo-color", light);
+		  else document.documentElement.style.setProperty("--logo-color", dark);
+		  let result = getComputedStyle(document.documentElement).getPropertyValue('--logo-color');
+		  console.log("result after route change", result);
+	  }
   },
   methods: {
   	handleScroll: function (event, element) {
