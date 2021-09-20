@@ -30,6 +30,7 @@ export default {
   },
   name: "BaseNavbar",
   mounted() {
+    this.handleColoring(this.$route.name);
   },
   computed: {
     collapsedComputed: function () {
@@ -56,34 +57,22 @@ export default {
     triggerCollapse: function (newCollapsed, oldCollapsed) {
       if (newCollapsed && newCollapsed != oldCollapsed) {
         this.collapsed = true;
-		if(this.$route.name == "about") this.setCssVariable("--nav-background", this.getCssVariable("--about-bg"));
-		else this.setCssVariable("--nav-background", this.getCssVariable("--dullpaper"));
         this.$refs.logo.animateCollapse("normal").play();
+
+        if(this.$route.name == "about") this.setCssVariable("--nav-background", this.getCssVariable("--about-bg"));
+        else this.setCssVariable("--nav-background", this.getCssVariable("--dullpaper"));
       }
     },
     triggerExpand: function (newCollapsed, oldCollapsed) {
       if (newCollapsed && newCollapsed != oldCollapsed) {
         this.collapsed = false;
-		if(this.$route.name != "about") this.setCssVariable("--nav-background", "transparent");
-        this.$refs.logo.animateCollapse("reverse").play();
+      this.$refs.logo.animateCollapse("reverse").play();
+
+      if(this.$route.name != "about") this.setCssVariable("--nav-background", "transparent");
       }
     },
     routeNameComputed(name) {
-      let dark = getComputedStyle(document.documentElement).getPropertyValue("--text-color");
-      let light = "white";
-
-      if (name == "about") {
-		this.setCssVariable("--logo-color", light);
-		this.setCssVariable("--navbar-color", light);
-		if(this.collapsed) this.setCssVariable("--nav-background", this.getCssVariable("--about-bg"));
-		else this.setCssVariable("--nav-background", "transparent"); 
-	  }
-      else if(name == "home"){
-		this.setCssVariable("--logo-color", dark);
-		this.setCssVariable("--navbar-color", this.getCssVariable("darkGrey"));
-		if(this.collapsed) this.setCssVariable("--nav-background", this.getCssVariable("--dullpaper"));
-		else this.setCssVariable("--nav-background", "transparent");
-	  }
+      this.handleColoring(name);
     },
   },
   methods: {
@@ -91,12 +80,31 @@ export default {
       this.triggerCollapse = window.scrollY > 30;
       this.triggerExpand = window.scrollY < 10;
     },
-	getCssVariable(colorName){
-		return getComputedStyle(document.documentElement).getPropertyValue(colorName)
-	},
-	setCssVariable(colorName, color){
-		document.documentElement.style.setProperty(colorName, color);
-	}
+    handleColoring(routeName){
+      let dark = getComputedStyle(document.documentElement).getPropertyValue("--text-color");
+      let light = "white";
+
+      if (routeName == "about") {
+        this.setCssVariable("--logo-color", light);
+        this.setCssVariable("--navbar-color", light);
+
+        if(this.collapsed) this.setCssVariable("--nav-background", this.getCssVariable("--about-bg"));
+        else this.setCssVariable("--nav-background", "transparent"); 
+      }
+      else if(routeName == "home"){
+        this.setCssVariable("--logo-color", dark);
+        this.setCssVariable("--navbar-color", this.getCssVariable("darkGrey"));
+        
+        if(this.collapsed) this.setCssVariable("--nav-background", this.getCssVariable("--dullpaper"));
+        else this.setCssVariable("--nav-background", "transparent");
+      }
+    },
+    getCssVariable(colorName){
+      return getComputedStyle(document.documentElement).getPropertyValue(colorName)
+    },
+    setCssVariable(colorName, color){
+      document.documentElement.style.setProperty(colorName, color);
+    }
   },
 };
 </script>

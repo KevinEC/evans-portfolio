@@ -3,9 +3,11 @@
         <div class="footerSlantElement"></div>
         <h2 class="footerTitleText">Let's<span class="util-outline-red"> Get in Touch</span></h2>
         <p class="footerBodyText">Wan't to discuss your next idea, have a chat over a cup of joe or learn more about how I'll fit into your dream team?
-            Reach me at <a href="mailto:k.evans.c@gmail.com" class="footerContact">k.evans.c@gmail.com</a> or take a look at any of the links below.
+            Reach me at <a href="mailto:k.evans.c@gmail.com" class="footerContact">k.evans.c@gmail.com</a> or at any of the links below.
         </p>
         <div class="footerContactInformation">
+            <!-- <span class="arrow">></span> -->
+            <!-- <a id="phoneNumber" class="footerContact">0762328355</a> -->
             <a href="www.linkedin.com/in/k-evans-c" class="footerContact">LinkedIn</a>
             <a href="https://github.com/kevinec" class="footerContact">Github</a>
             <!-- <a href="#" class="footerContact">Instagram</a> -->
@@ -27,7 +29,7 @@ export default {
             if(this.$route.name == "about") return true;
             else return false;
         }
-    }
+    },
 }
 
 </script>
@@ -81,13 +83,24 @@ export default {
 
     .footerContactInformation{
         display: flex;
-        flex-flow: row nowrap;
+        flex-flow: row wrap;
         padding: 20px 0;
+
+        .arrow{
+            color: white;
+            padding-right: 10px;
+            margin-left: -10px;
+            font-weight: bold;
+        }
 
         .footerContact{
             margin-right: 90px;
             color: var(--offWhite);
             text-transform: uppercase;
+
+            &#phoneNumber:hover{
+                color: white;
+            }
             
             &:hover{
                 color: var(--applered);

@@ -58,11 +58,6 @@
                         :maxY="20">
                     </kinesis-element>
                 </div>
-                <div class="aboutMusic">
-                    <h2 class="aboutMusicTitle">I Love music</h2>
-                    <p>On my free time I like to curate some Spotify playlists. Take a look if you can relate or want to explore some of the genres below.</p>
-                    <a href="#">Spotify</a>
-                </div>
             </div>
             <div class="col-sm-4 offset-sm-1">
                 <div class="aboutRight">
