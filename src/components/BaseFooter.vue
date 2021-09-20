@@ -6,16 +6,29 @@
             Reach me at <a href="mailto:k.evans.c@gmail.com" class="footerContact">k.evans.c@gmail.com</a> or take a look at any of the links below.
         </p>
         <div class="footerContactInformation">
-            <a href="#" class="footerContact">LinkedIn</a>
-            <a href="#" class="footerContact">Github</a>
-            <a href="#" class="footerContact">Instagram</a>
-            <a href="#" class="footerContact">CV</a>
+            <a href="www.linkedin.com/in/k-evans-c" class="footerContact">LinkedIn</a>
+            <a href="https://github.com/kevinec" class="footerContact">Github</a>
+            <!-- <a href="#" class="footerContact">Instagram</a> -->
         </div>
-        <p class="footerBodyText">Still curious? Take a look at my <router-link class="router-link" to="/about">about page</router-link>.</p>
+        <p v-if="!aboutPageComputed" class="footerBodyText">Still curious? Take a look at my <router-link class="router-link" to="/about">about page</router-link>.</p>
     </div>
 </template>
 
 <script>
+export default {
+    name: "BaseFooter",
+    data () {
+        return {
+
+        }
+    },
+    computed: {
+        aboutPageComputed(){
+            if(this.$route.name == "about") return true;
+            else return false;
+        }
+    }
+}
 
 </script>
 

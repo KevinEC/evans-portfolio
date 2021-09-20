@@ -133,6 +133,7 @@ export default {
             list-style-type: none;
             & > a {
               font-weight: bold;
+              font-family: 'Montserrat';
               color: var(--navbar-color);
 
 			  &:hover{

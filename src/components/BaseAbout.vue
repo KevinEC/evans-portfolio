@@ -1,5 +1,5 @@
 <template>
-    <kinesis-container :duration="500" :perspective="1000000" :active="true" class="container baseAboutRoot">
+    <kinesis-container :duration="2000" :perspective="1000000" :active="true" class="container baseAboutRoot">
         <div class="row">
             <div class="col-sm-10 offset-sm-1">
                 <h2 class="aboutTitleWrapper">
@@ -39,7 +39,7 @@
                 </h2>
             </div>
         </div>
-        <kinesis-container :duration="300" event="scroll" class="row testtt">
+        <kinesis-container :duration="300" event="scroll" class="row">
             <div class="col-sm-5 offset-sm-1">
                 <div class="aboutLeft">
                     <kinesis-element 
@@ -57,6 +57,11 @@
                         :strength="140"
                         :maxY="20">
                     </kinesis-element>
+                </div>
+                <div class="aboutMusic">
+                    <h2 class="aboutMusicTitle">I Love music</h2>
+                    <p>On my free time I like to curate some Spotify playlists. Take a look if you can relate or want to explore some of the genres below.</p>
+                    <a href="#">Spotify</a>
                 </div>
             </div>
             <div class="col-sm-4 offset-sm-1">
@@ -80,11 +85,6 @@
                 </div>
             </div>
         </kinesis-container>
-        <div class="row">
-            <div class="col-sm-6">
-                <h3>Socials / Creative Outlets</h3>
-            </div>
-        </div>
     </kinesis-container>
 </template>
 
@@ -121,8 +121,6 @@ export default {
     padding-top: 30px;
     padding-bottom: 90px;
 
-    //.testtt{background-color: green;}
-
     .aboutTitleWrapper{
         margin-top: 80px;
         margin-bottom: 280px;
@@ -137,8 +135,6 @@ export default {
 
         .aboutTitleBack{
             position: absolute;
-            //left: -25px;
-            //top: -15px;
             color: #2e2e2e;
             z-index: -1;
         }
@@ -147,8 +143,6 @@ export default {
         }
         .aboutTitleFront{
             position: absolute;
-            //left: 50px;
-            //top: 10px;  
             color: transparent; 
             z-index: 1;
         }
@@ -203,6 +197,31 @@ export default {
             top: -300px;
         }
 
+    }
+
+    .aboutMusic{
+        padding-top: 80px;
+        padding-bottom: 80px;
+        color: white;
+
+        .aboutMusicTitle{
+            text-transform: uppercase;
+            color: white;
+            font-size: 50px;
+            //font-family: 'Montserrat';
+            font-weight: 700;
+        }
+
+        > a{
+            text-transform: uppercase;
+            color: white;
+
+            &:hover{
+                color: var(--applered);
+                text-decoration: none;
+            }
+        }
+        
     }
 }
 
