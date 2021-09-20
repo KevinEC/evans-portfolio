@@ -24,7 +24,7 @@
 							</template>
 						</div>
 						<div class="vertical-line-wrapper">
-							<div class="circle"></div>
+							<a href="#projectHeader" class="circle"><div class="circleDot"></div></a>
 							<div class="line"></div>
 						</div>
 					</div>
@@ -222,10 +222,10 @@ export default {
 		.vertical-line-wrapper{
 			position: absolute;
 			bottom: 100px;
-			right: 500px;
+			right: 20vw;
 			display: flex;
 			justify-content: center;
-			z-index: 0;
+			z-index: 10;
 
 			.circle{
 				background-color: white;
@@ -236,15 +236,30 @@ export default {
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				transition: margin-bottom 0.15s var(--easeOutQuad);
 
-				&::before{
-					content: '';
+
+				&:hover{
+					margin-bottom: -5px;
+					cursor: pointer;
+
+					.circleDot{
+						transform: rotate(45deg);
+						border-radius: 0%;
+					}
+				}
+
+				.circleDot{
 					width: 9px;
 					height: 9px;
 					border-radius: 100%;
 					display: block;
 					background-color: var(--applered);
+
+					transition: margin-top 0.25s var(--ezOuut);
 				}
+
+				
 			}
 
 			.line{

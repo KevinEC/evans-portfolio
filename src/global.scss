@@ -13,6 +13,7 @@
 --offWhite: #d4d4d4;
 --lightpink: #f5e3e2;
 --dullpink: #e4d2d1;
+--dullerpink: #b17f7f;
 --applered: #e56c69;
 
 --navbar-color: var(--darkgrey);
@@ -26,6 +27,9 @@
 --easeOutExpo: cubic-bezier(0.19, 1, 0.22, 1);
 --ezOuut: cubic-bezier(0, 0.78, 0, 0.98);
 
+}
+html{
+	scroll-behavior: smooth;
 }
 body{
 	background-color: var(--background-color);

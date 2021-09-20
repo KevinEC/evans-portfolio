@@ -1,5 +1,5 @@
 <template>
-	<div class="statementRoot container narrow">
+	<div class="statementRoot container">
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="statmentWrapper">
@@ -35,7 +35,8 @@ export default {
 @import "../custom-variables";
 
 .statementRoot{
-	padding: 90px 0;
+	padding-top: 90px;
+	padding-bottom: 90px;
 
 	.statmentWrapper{
 		display: flex;
@@ -65,12 +66,12 @@ export default {
 				font-family: var(--font-family-sans-serif);
 				text-align: center;
 
-				.bold{
-					font-weight: bold;
-				}
-				.red{
-					color: var(--applered);
-				}
+				// .bold{
+				// 	font-weight: bold;
+				// }
+				// .red{
+				// 	color: var(--applered);
+				// }
 			}
 
 		}

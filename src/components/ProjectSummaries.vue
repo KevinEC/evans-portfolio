@@ -1,5 +1,5 @@
 <template>
-  <div class="projectSummariesRoot container narrow">
+  <div id="projects" class="projectSummariesRoot container narrow">
     <div class="projectsLine"></div>
     <div class="galleryLine"></div>
     <project-summary 
@@ -114,7 +114,7 @@
 
   .galleryLine{
     position: absolute;
-    right: 527px;
+    right: calc(20vw + 26px);
     top: -180px;
     height: 100%;
     width: 1px;

@@ -61,8 +61,8 @@
             </div>
             <div class="col-sm-4 offset-sm-1">
                 <div class="aboutRight">
-                    <kinesis-element tag="img" :strength="80" class="aboutPortrait behind" src="/porttrait-fill.png" alt="portrait image of Kevin Evans" />
-                    <kinesis-element tag="img" :strength="-80" class="aboutPortrait" src="/porttrait.png" alt="portrait image of Kevin Evans" />
+                    <kinesis-element tag="img" :strength="80" class="aboutPortrait behind" src="./porttrait-fill.png" alt="portrait image of Kevin Evans" />
+                    <kinesis-element tag="img" :strength="-80" class="aboutPortrait" src="./porttrait.png" alt="portrait image of Kevin Evans" />
                     <kinesis-element 
                         tag="p" 
                         class="aboutText"

@@ -1,6 +1,6 @@
 <template>
-	<div v-scroll="handleScroll" class="projectHeaderRoot" :class="collapsedClassComputed">
-		<div class="container narrow">
+	<div v-scroll="handleScroll" id="projectHeader" class="projectHeaderRoot" :class="collapsedClassComputed">
+		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="projectHeaderWrapper">
@@ -23,7 +23,7 @@ export default {
   data () {
     return {
 			collapsed: false,
-			collapseY: 850,
+			collapseY: 780,
 			titleEl: null,
 			lineEl: null
     }
@@ -141,15 +141,6 @@ export default {
 
 	.projectHeaderWrapper{
 		padding-bottom: 0;
-
-		.title{
-			//font-size: 35px;
-			margin-left: -65px;
-		}
-
-		.thick-line{
-			//opacity: 0;
-		}
 	}
 }
 </style>

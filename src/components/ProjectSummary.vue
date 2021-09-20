@@ -4,7 +4,12 @@
       <div class="col-sm-6 projectContentCol">
         <div class="projectDot" :class="projectDotExpandedComputed"></div>
         <kinesis-container  :perspective="500">
-          <kinesis-element type="depth" :strength="10" axis="x" transformOrigin="50% 50%">
+          <kinesis-element 
+              type="depth_inv" 
+              :strength="10" 
+              axis="x"
+              transformOrigin="50% 0%"
+            >
             <div class="projectTitleWrapper">
               <h1
                 class="projectTitle"
@@ -318,7 +323,7 @@ export default {
     }
 
     .projectTitle:hover {
-      color: #b17f7f;
+      color: var(--dullerpink);
       -webkit-text-stroke: 0px;
       cursor: pointer;
     }
@@ -346,7 +351,7 @@ export default {
     padding-top: 1rem;
 
     .projectInfo {
-      $info-spacing: 0.4rem;
+      $info-spacing: 0.2rem;
       padding: $info-spacing 0;
       text-transform: uppercase;
       font-family: "Montserrat";
@@ -358,11 +363,15 @@ export default {
         padding-right: $info-spacing;
       }
     }
+
+    .projectSummary{
+      padding-top: 0.4rem;
+    }
   }
 
   .projectImgPreviewWrapper{
     margin-top: -250px;
-    margin-left: -200px;
+    margin-left: -20px;
     width: 100%;
     //z-index: -1;
     display: flex;

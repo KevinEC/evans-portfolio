@@ -8,7 +8,7 @@ git add .
 
 git commit -m"deploy"
 
-git remote add evans-portfolio https://github.com/KevinEC/evans-portfolio
+git remote add evans-portfolio git@github.com:kevinec/evans-portfolio.git
 
 git branch dist
 git checkout dist
