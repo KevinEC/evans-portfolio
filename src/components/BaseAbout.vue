@@ -1,5 +1,5 @@
 <template>
-    <kinesis-container :duration="2000" :perspective="1000000" :active="true" class="container baseAboutRoot">
+    <kinesis-container :duration="200" :perspective="1000000" :active="true" class="container baseAboutRoot">
         <div class="row">
             <div class="col-sm-10 offset-sm-1">
                 <h2 class="aboutTitleWrapper">

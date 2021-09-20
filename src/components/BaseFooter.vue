@@ -8,8 +8,8 @@
         <div class="footerContactInformation">
             <!-- <span class="arrow">></span> -->
             <!-- <a id="phoneNumber" class="footerContact">0762328355</a> -->
-            <a href="www.linkedin.com/in/k-evans-c" class="footerContact">LinkedIn</a>
-            <a href="https://github.com/kevinec" class="footerContact">Github</a>
+            <a target="_blank" href="//www.linkedin.com/in/k-evans-c" class="footerContact">LinkedIn</a>
+            <a target="_blank" href="//www.github.com/kevinec" class="footerContact">Github</a>
             <!-- <a href="#" class="footerContact">Instagram</a> -->
         </div>
         <p v-if="!aboutPageComputed" class="footerBodyText">Still curious? Take a look at my <router-link class="router-link" to="/about">about page</router-link>.</p>

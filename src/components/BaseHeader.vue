@@ -24,7 +24,7 @@
 							</template>
 						</div>
 						<div class="vertical-line-wrapper">
-							<a href="#projectHeader" class="circle"><div class="circleDot"></div></a>
+							<a @mouseup="fixAddressbar" href="#projectHeader" class="circle"><div class="circleDot"></div></a>
 							<div class="line"></div>
 						</div>
 					</div>
@@ -83,6 +83,11 @@ export default {
   	getEl: function (selector) {
   		return this.$vnode.elm.querySelector(selector);
   	},
+	fixAddressbar(){
+		this.$router.push({name: "home"}, () => {
+			console.log("oncomplete")
+		});
+	},
   	introAnimation() {
 			let self = this;
   		let timeline = anime.timeline({
