@@ -24,7 +24,7 @@
 							</template>
 						</div>
 						<div class="vertical-line-wrapper">
-							<a @mouseup="fixAddressbar" href="#projectHeader" class="circle"><div class="circleDot"></div></a>
+							<a v-scroll-to="'#projectHeader'" class="circle"><div class="circleDot"></div></a>
 							<div class="line"></div>
 						</div>
 					</div>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import bootstrap from "bootstrap"
+var VueScrollTo = require('vue-scrollto');
 
 Vue.config.productionTip = false
 
@@ -9,6 +10,13 @@ Vue.use(VueRouter)
 
 import BaseHome from './components/BaseHome.vue'
 import BaseAbout from './components/BaseAbout.vue'
+
+// You can also pass in the default options
+Vue.use(VueScrollTo, {
+	container: "body",
+	duration: 100,
+	easing: "ease-in",
+})
 
 // Directive to use on scroll listener
 Vue.directive('scroll', {
