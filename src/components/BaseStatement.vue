@@ -65,16 +65,37 @@ export default {
 				margin: 0;
 				font-family: var(--font-family-sans-serif);
 				text-align: center;
-
-				// .bold{
-				// 	font-weight: bold;
-				// }
-				// .red{
-				// 	color: var(--applered);
-				// }
 			}
 
 		}
 	}
 }
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "sm")){
+	.statementRoot{
+
+		.statmentWrapper{
+			flex-flow: column;
+			align-items: center;
+
+			.vertical-line{
+				display: none;
+			}
+
+			.paragraph-wrapper{
+				flex: 1 1 40%;
+				padding: 0 1.6%;
+
+				h5{
+					width: 70%;
+					padding: 4rem 0;
+					background-color: var(--dullpaper);
+					text-align: left;
+				}
+
+			}
+		}
+	}
+}
+
 </style>

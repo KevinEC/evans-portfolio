@@ -285,16 +285,91 @@ export default {
 
 			.welcome-message{
 				.greeting{
-					font-size: 9vw;
+					font-size: 13vw;
 					line-height: 60px;
+					margin-left: 0px;
 				}
-				.what-I-am{
-					font-size: 5vw;
-					line-height: 40px;
+				#what-I-am-wrapper{
+					margin-left: 0;
+
+					.what-I-am{
+						font-size: 5vw;
+						line-height: 40px;
+					}
+				}
+
+				.what-I-do{
+					margin: 0;
 				}
 			}
 		}
 	}
+}
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "md")){
+	.baseHeaderRoot{
+		.baseHeaderWrapper{
+
+			.bg-graphics{
+
+				.line{
+					margin-top: -10vw;
+					margin-left: -15vw;
+				}
+			}
+
+			.welcome-message{
+				padding: 0 40px;
+				.greeting{
+					line-height: 60px;
+				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "sm")){
+	.baseHeaderRoot{
+		.baseHeaderWrapper{
+			width: 100vw;
+			margin-left: -5vw;
+			box-shadow: none;
+
+			.bg-graphics{
+
+				.line{
+					display: none;
+				}
+			}
+			.welcome-message{
+				padding: 0 20px;
+
+				.greeting{
+					font-size: 20vw;
+					line-height: 100px;
+				}
+
+				#what-I-am-wrapper{
+
+					.what-I-am{
+						font-size: 10vw;
+						line-height: 60px;
+					}
+				}
+			}
+
+			.vertical-line-wrapper{
+				width: fit-content;
+				left: 13vw;
+				right: 0;
+
+				.line{
+					height: 80vh;
+				}
+			}	
+		}
+	}
+	
 }
 
 </style>
