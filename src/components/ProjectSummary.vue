@@ -1,7 +1,7 @@
 <template>
   <div class="projectSummaryRoot" :class="collapseMarginComputed" v-scroll="handleScroll">
     <div class="row" :style="wrapperYOffsetStyleComputed">
-      <div class="col-sm-6 projectContentCol">
+      <div class="col-sm-6 d-none d-lg-block projectContentCol">
         <div class="projectDot" :class="projectDotExpandedComputed"></div>
         <kinesis-container  :perspective="500">
           <kinesis-element 
@@ -57,7 +57,78 @@
           <span class="demoLinkUnderline"></span>
         </div>
       </div>
-      <div class="col-sm-6">
+      <!-- LEFT COL MOBILE LAYOUT -->
+      <div class="col-sm-6 d-lg-none projectContentCol">
+        <div class="projectDot" :class="projectDotExpandedComputed"></div>
+        <kinesis-container  :perspective="500">
+          <kinesis-element 
+              type="scroll" 
+              :strength="10" 
+              axis="x"
+              transformOrigin="50% 0%"
+            >
+            <div class="projectTitleWrapper">
+              <h1
+                class="projectTitle"
+                @click="toggle"
+                @mouseover="titleHover"
+                @mouseleave="titleHover"
+                data-toggle="collapse"
+                :href="'#'+toggleId"
+                role="button"
+                :aria-controls="toggleId"
+              >{{this.titleComputed}}</h1>
+              <kinesis-container event="scroll" class="kinesisWrapper">
+                <kinesis-element class="kinesisWrapper" type="translate" :strength="-70">
+                  <div class="projectTitleBg"></div>
+                </kinesis-element>
+              </kinesis-container>
+            </div>
+          </kinesis-element>
+        </kinesis-container>
+      </div>
+      <!-- PREVIEW IMAGE MOBILE LAYOUT -->
+      <div class="col-sm-6 d-lg-none">
+        <div class="projectImgPreviewWrapper" :class="projectImgWrapperResponsive">
+          <div class="projectImgWrapper" :id="imageId">
+            <div class="previewImageLayer" id="projectImagePinkLayer"></div>
+            <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
+            <img :src="'./projectPreviews/'+previewImgComputed" class="projectPreviewImage" :alt="'preview image for'+ titleComputed" />
+            <div class="previewImageLayer" id="previewImageBg"></div>
+          </div>
+        </div>
+      </div>
+      <!-- PROJECT INFO MOBILE LAYOUT -->
+      <div class="row d-lg-none">
+        <div class="col-xs-12  projectContent collapse" :class="initExpanded" :id="toggleId">
+          <h4 class="projectInfo">
+            <span class="projectInfoLabel">Company</span>
+            {{ this.companyComputed }}
+          </h4>
+          <h4 class="projectInfo">
+            <span class="projectInfoLabel">year</span>
+            {{ this.yearComputed }}
+          </h4>
+          <h4 class="projectInfo">
+            <span class="projectInfoLabel">role</span>
+            {{ this.roleComputed }}
+          </h4>
+          <p class="projectSummary">{{ descriptionComputed }}</p>
+        </div>
+        <div class="demoLinkWrapper d-lg-none" :class="showComputed">
+          <a @click="galleryToggle"
+            data-toggle="collapse"
+            :href="'#'+galleryToggleId"
+            role="button"
+            aria-expanded="true"
+            :aria-controls="galleryToggleId"
+          >
+          Pictures</a>
+          <span class="demoLinkUnderline"></span>
+        </div>
+      </div>
+      
+      <div class="col-sm-6 d-none d-lg-block">
         <div class="projectImgPreviewWrapper">
           <div class="projectImgWrapper" :id="imageId">
             <div class="previewImageLayer" id="projectImagePinkLayer"></div>
@@ -68,6 +139,7 @@
         </div>
       </div>
     </div>
+    
     <div class="row">
       <div class="col-sm-12">
         <kinesis-container class="projectGalleryKinesisContainer collapse" :id="galleryToggleId">
@@ -120,6 +192,7 @@ export default {
       projectSummariesY: null,
       previewImageYBase: null,
       previewImageYCurrent: null,
+      projectOnScreen: true,
       wrapperYOffsetStyle: {},
       xOffsetStyle: {},
       previewImagePerspectiveStyle: null,
@@ -128,8 +201,14 @@ export default {
     };
   },
   mounted(){
-    this.initEntranceAnimation();
+    //this.initEntranceAnimation();
     this.expandOnInit();
+
+    let mmQuery = window.matchMedia("(max-width: 900px)");
+    mmQuery.addEventListener("change", this.updateEntranceAnimation);
+    if(mmQuery.matches) this.entranceAnimation = this.initEntranceAnimation("mobile");
+    else this.entranceAnimation = this.initEntranceAnimation();
+    
   },
   computed: {
     titleComputed() {
@@ -152,11 +231,9 @@ export default {
     },
     projectDotExpandedComputed(){
       if(!this.holdFillState && this.expanded && this.titleHovered) {
-        console.log("preview min. remove fill when expanded")
         return "" // if project expanded and u hover preview closed state e.g not fill
       }
       else if(!this.holdFillState && !this.expanded && this.titleHovered) {
-        console.log("preview expanded. fill when collapsed")
         return "fill"
       }
       else if (this.expanded) {
@@ -165,6 +242,10 @@ export default {
       else if(!this.expanded){
         return "";
       } 
+    },
+    projectImgWrapperResponsive(){
+      if(this.projectOnScreen) return "mobile";
+      else return "";
     },
     previewImgComputed(){
       if (this.project) return this.project.previewImg;
@@ -246,9 +327,15 @@ export default {
 
       let imageY = element.getBoundingClientRect().top + window.scrollY - 800;
       let pageScroll = document.documentElement.scrollTop || document.body.scrollTop;
-
-      if(!this.entranceAnimation.began && (pageScroll > imageY)) {
+      
+      if(this.entranceAnimation != null && !this.entranceAnimation.began && (pageScroll > imageY)) {
         this.entranceAnimation.play();
+      }
+
+      if((pageScroll > imageY + 250) && (pageScroll < imageY + 500)){
+        this.projectOnScreen = true;
+      } else {
+        this.projectOnScreen = false;
       }
     },
     computeImageEntrance(){
@@ -257,9 +344,15 @@ export default {
         opacity: "1"
       }
     },
-    initEntranceAnimation(){
-      this.entranceAnimation = new anime({
-        targets: this.getEl("#"+this.imageId),
+    updateEntranceAnimation(e){
+      if(e.match) this.entranceAnimation = this.initEntranceAnimation("mobile");
+      else this.entranceAnimation = this.initEntranceAnimation();
+    },
+    initEntranceAnimation(format){
+      let cssClass = "d-lg-block";
+      if(format == "mobile") cssClass = "d-lg-none";
+      return new anime({
+        targets: this.getEl(`.${cssClass} #${this.imageId}`),
         perspective: 1500,
         translateY: [900, 250],
         rotateX: [25, 50],
@@ -273,10 +366,11 @@ export default {
       });
     },
   }
-};
+}
 </script>
 
 <style lang="scss">
+@import "../custom-variables.scss";
 .projectSummaryRoot {
   margin: 10rem 0;
   margin-bottom: 30rem;
@@ -357,6 +451,7 @@ export default {
       font-family: "Montserrat";
       font-weight: 700;
       color: var(--applered);
+      text-shadow: 2px 2px 0px var(--dullpaper);
 
       .projectInfoLabel {
         color: black;
@@ -546,5 +641,65 @@ export default {
 }
 .projectSummaryRoot.collapsedMargin{
   margin-bottom: 25rem;
+}
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "lg")){
+  .projectSummaryRoot{
+
+    .projectTitleWrapper{
+
+      .projectTitle{
+        font-size: 2.3rem;
+      }
+    }
+
+    .projectContent{
+      padding-left: 2rem;
+    }
+
+    .projectImgPreviewWrapper{
+      width: 120%;
+      z-index: -1;
+    }
+
+    .demoLinkWrapper{
+      margin-left: 2rem;
+    }
+  }
+}
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "sm")){
+  .projectSummaryRoot{
+
+    .projectContent{
+      padding-left: 1rem;
+    }
+
+    .demoLinkWrapper{
+      margin-left: 1rem;
+    }
+
+    .projectImgPreviewWrapper{
+      width: 120%;
+      margin-top: -500px;
+      z-index: -1;
+
+      &.mobile{
+        #projectImagePinkLayer{
+          background-color: rgba(#ebd8d8, 0);
+        }
+
+        #previewImageWhiteLayer{
+          background-color: rgba(white, 0);
+        }
+        
+        .projectPreviewImage{
+          filter: saturate(1) blur(0px);
+        }
+      }
+    }
+
+    
+  }
 }
 </style>

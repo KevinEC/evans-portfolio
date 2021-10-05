@@ -21,7 +21,6 @@
 <script>
 import BaseNavbarLogo from "./BaseNavbarLogo";
 import { Vuenime } from "vuenime";
-import anime from "animejs";
 
 export default {
   components: {

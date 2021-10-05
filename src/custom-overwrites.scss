@@ -6,3 +6,10 @@
 a{
   font-family: 'Archivo Black';
 }
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "lg")){
+  .narrow.container{
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}

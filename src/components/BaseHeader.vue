@@ -5,23 +5,13 @@
 				<kinesis-container event="scroll">
 					<div class="baseHeaderWrapper">
 						<div class="bg-graphics">
-							<kinesis-element v-if="false" :style="initZeroTransform" class="kinesis-wrapper" :strength="-20" transformOrigin="100% 0%" type="rotate">
-								<img inline-svg class="triangle" src="triangle.svg" alt="triangle graphic" />
-							</kinesis-element>
-							<img v-else inline-svg class="triangle" src="triangle.svg" alt="triangle graphic" />
+							<img inline-svg class="triangle" src="triangle.svg" alt="triangle graphic" />
 							<div class="line"></div>
 						</div>
 						<div class="welcome-message">
-							<kinesis-element v-if="false" axis="y" :strength="-300">
-								<div class="animation-clip"><h1 class="greeting">Hey,</h1></div>
-								<div id="what-I-am-wrapper" class="animation-clip"><h2 class="what-I-am">I'm a <span>coding designer</span>.</h2></div>
-								<div class="animation-clip"><span class="what-I-do">I make experiences come alive on the web</span></div>
-							</kinesis-element>
-							<template v-else>
-								<div class="animation-clip"><h1 class="greeting">Hey,</h1></div>
-								<div id="what-I-am-wrapper" class="animation-clip"><h2 class="what-I-am">I'm a <span>coding designer</span>.</h2></div>
-								<div class="animation-clip"><span class="what-I-do">I make experiences come alive on the web</span></div>
-							</template>
+							<div class="animation-clip"><h1 class="greeting">Hey,</h1></div>
+							<div id="what-I-am-wrapper" class="animation-clip"><h2 class="what-I-am">I'm a <span>coding designer</span>.</h2></div>
+							<div class="animation-clip"><span class="what-I-do">I make experiences come alive on the web</span></div>
 						</div>
 						<div class="vertical-line-wrapper">
 							<a v-scroll-to="'#projectHeader'" class="circle"><div class="circleDot"></div></a>
@@ -54,9 +44,9 @@ export default {
     	whatIdoEl: ".what-I-do",
     	diagonalTransformX: 140,
     	diagonalTransformY: 180,
-			diagonalRotateZ: -45,
-			introAnimationComplete: false,
-			init: true,
+		diagonalRotateZ: -45,
+		introAnimationComplete: false,
+		init: true,
     }
 	},
 	computed: {
@@ -149,6 +139,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../custom-variables.scss";
 .baseHeaderRoot{
 	.baseHeaderWrapper{
 		background-color: var(--lightpink);
@@ -273,6 +264,34 @@ export default {
 				position: absolute;
 				z-index: 4;
 				background-color: var(--dullpink);
+			}
+		}
+	}
+}
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "lg")){
+	.baseHeaderRoot{
+
+		.baseHeaderWrapper{
+
+			.bg-graphics{
+
+				.line{
+					margin-top: -5vw;
+					margin-left: -5vw;
+					width: 300px;
+				}
+			}
+
+			.welcome-message{
+				.greeting{
+					font-size: 9vw;
+					line-height: 60px;
+				}
+				.what-I-am{
+					font-size: 5vw;
+					line-height: 40px;
+				}
 			}
 		}
 	}
