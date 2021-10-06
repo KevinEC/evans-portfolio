@@ -328,8 +328,8 @@ export default {
 @media screen and (max-width: map-get($map: $grid-breakpoints, $key: "sm")){
 	.baseHeaderRoot{
 		.baseHeaderWrapper{
-			width: 100vw;
-			margin-left: -5vw;
+			width: 102vw;
+			margin-left: -4vw;
 			box-shadow: none;
 
 			.bg-graphics{
@@ -343,6 +343,7 @@ export default {
 				}
 			}
 			.welcome-message{
+				top: 8rem;
 				padding: 0 20px;
 
 				.greeting{
@@ -363,6 +364,37 @@ export default {
 				left: 10vw;
 				bottom: 10vh;
 				right: 0;
+
+				.circle{
+					width: 2.5rem;
+					height: 2.5rem;
+
+					.circleDot{
+						width: 0.9rem;
+						height: 0.9rem;
+						border-radius: 100%;
+					}
+					
+					&:hover{
+						margin-bottom: 0px;
+
+						.circleDot{
+							transform: rotate(0deg);
+							border-radius: 0%;
+						}
+					}
+
+					&:active{
+						margin-bottom: -5px;
+						cursor: pointer;
+
+						.circleDot{
+							transform: rotate(45deg);
+							border-radius: 0%;
+						}
+					}
+				}
+				
 
 				.line{
 					height: 80vh;

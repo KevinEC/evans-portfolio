@@ -83,12 +83,11 @@ export default {
 			}
 
 			.paragraph-wrapper{
-				flex: 1 1 40%;
-				padding: 0 1.6%;
 
 				h5{
-					width: 70%;
+					width: 90%;
 					padding: 4rem 0;
+					padding-left: 1rem;
 					background-color: var(--dullpaper);
 					text-align: left;
 				}
