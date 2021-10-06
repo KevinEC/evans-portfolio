@@ -75,14 +75,12 @@ export default {
   	},
 	fixAddressbar(){
 		this.$router.push({name: "home"}, () => {
-			console.log("oncomplete")
 		});
 	},
   	introAnimation() {
 			let self = this;
   		let timeline = anime.timeline({
   			complete(anim){
-					console.log("complete. self in complte hook: ", self);
 					self.introAnimationComplete = true;
 				}
   		});
@@ -115,7 +113,6 @@ export default {
   			duration: 2000,
 				easing: 'easeOutExpo',
 				complete(anim){
-					console.log("complete. self in triangle complte hook: ", self);
 					self.introAnimationComplete = true;
 				}
   		});
@@ -286,7 +283,7 @@ export default {
 			.welcome-message{
 				.greeting{
 					font-size: 13vw;
-					line-height: 60px;
+					line-height: 95px;
 					margin-left: 0px;
 				}
 				#what-I-am-wrapper{
@@ -340,6 +337,10 @@ export default {
 				.line{
 					display: none;
 				}
+
+				.triangle{
+					width: 90%;
+				}
 			}
 			.welcome-message{
 				padding: 0 20px;
@@ -353,14 +354,14 @@ export default {
 
 					.what-I-am{
 						font-size: 10vw;
-						line-height: 60px;
 					}
 				}
 			}
 
 			.vertical-line-wrapper{
 				width: fit-content;
-				left: 13vw;
+				left: 10vw;
+				bottom: 10vh;
 				right: 0;
 
 				.line{

@@ -35,6 +35,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../custom-variables.scss";
+
 .baseFooterRoot{
     background-color: var(--offBlack);
     padding: 50px 6%;
@@ -47,7 +49,7 @@ export default {
         height: 300px;
         position: absolute;
         z-index: -1;
-        width: 99vw;
+        width: 115vw;
         margin-left: -83px;
         top: -40px;
         transform: rotate(3deg);
@@ -107,6 +109,40 @@ export default {
                 text-decoration: none;
             }
         }
+    }
+}
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "lg")){
+
+    .baseFooterRoot{
+        padding-top: 30px;
+
+        .footerTitleText{
+            font-size: 7vw;
+        }
+
+        .footerBodyText{
+            width: 70%;
+        }
+
+        
+    }
+}
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "md")){
+    .baseFooterRoot{
+        .footerTitleText{
+            font-size: 14vw;
+        }
+        .footerBodyText{
+            width: 100%;
+        }
+        .footerContactInformation{
+            .footerContact{
+                margin-right: 5vw;
+            }
+        }
+
     }
 }
 </style>

@@ -100,6 +100,8 @@
 </script>
 
 <style lang="scss">
+@import "../custom-variables.scss";
+
 .projectSummariesRoot{
   position: relative;
   
@@ -121,5 +123,15 @@
     z-index: -1;
     background-color: var(--lightpink);
   }
+}
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "sm")){
+.projectSummariesRoot{
+  .galleryLine{
+    right: unset;
+    display: none;
+    left: calc(5vw + 26px);
+  }
+}
 }
 </style>

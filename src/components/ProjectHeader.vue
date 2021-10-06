@@ -82,6 +82,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../custom-variables.scss";
+
 .projectHeaderRoot{
 
 	.projectHeaderWrapper{
@@ -142,5 +144,33 @@ export default {
 	.projectHeaderWrapper{
 		padding-bottom: 0;
 	}
+}
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "md")){
+.projectHeaderRoot{
+	background-color: var(--dullpaper);
+	padding-top: 50px;
+	padding-bottom: 10px;
+	position: relative;
+
+	.projectHeaderWrapper{
+		.title{
+			font-size: 50px;
+		}
+		.thick-line{
+			display: none;
+		}
+	}
+}
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "sm")){
+	.projectHeaderRoot{
+		margin-bottom: 30vh;
+	}
+}
+
+.projectHeaderRoot.collapsed{
+	padding-top: 0px;
+}
+
 }
 </style>

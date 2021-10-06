@@ -59,7 +59,14 @@
       </div>
       <!-- LEFT COL MOBILE LAYOUT -->
       <div class="col-sm-6 d-lg-none projectContentCol">
-        <div class="projectDot" :class="projectDotExpandedComputed"></div>
+        <div class="projectDot"
+            :class="projectResponsive + projectDotExpandedComputed"
+            @click="toggle"
+            data-toggle="collapse"
+            :href="'#'+toggleId"
+            role="button"
+            :aria-controls="toggleId"
+        ></div>
         <kinesis-container  :perspective="500">
           <kinesis-element 
               type="scroll" 
@@ -70,6 +77,7 @@
             <div class="projectTitleWrapper">
               <h1
                 class="projectTitle"
+                :class="projectResponsive"
                 @click="toggle"
                 @mouseover="titleHover"
                 @mouseleave="titleHover"
@@ -89,7 +97,7 @@
       </div>
       <!-- PREVIEW IMAGE MOBILE LAYOUT -->
       <div class="col-sm-6 d-lg-none">
-        <div class="projectImgPreviewWrapper" :class="projectImgWrapperResponsive">
+        <div class="projectImgPreviewWrapper" :class="projectResponsive">
           <div class="projectImgWrapper" :id="imageId">
             <div class="previewImageLayer" id="projectImagePinkLayer"></div>
             <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
@@ -99,7 +107,7 @@
         </div>
       </div>
       <!-- PROJECT INFO MOBILE LAYOUT -->
-      <div class="row d-lg-none">
+      <div class="d-lg-none">
         <div class="col-xs-12  projectContent collapse" :class="initExpanded" :id="toggleId">
           <h4 class="projectInfo">
             <span class="projectInfoLabel">Company</span>
@@ -113,7 +121,10 @@
             <span class="projectInfoLabel">role</span>
             {{ this.roleComputed }}
           </h4>
-          <p class="projectSummary">{{ descriptionComputed }}</p>
+          <p class="projectSummary">
+            {{ descriptionComputed }}
+            
+          </p>
         </div>
         <div class="demoLinkWrapper d-lg-none" :class="showComputed">
           <a @click="galleryToggle"
@@ -243,8 +254,8 @@ export default {
         return "";
       } 
     },
-    projectImgWrapperResponsive(){
-      if(this.projectOnScreen) return "mobile";
+    projectResponsive(){
+      if(this.projectOnScreen) return "mobile ";
       else return "";
     },
     previewImgComputed(){
@@ -332,7 +343,7 @@ export default {
         this.entranceAnimation.play();
       }
 
-      if((pageScroll > imageY + 250) && (pageScroll < imageY + 500)){
+      if((pageScroll > imageY + 250) && (pageScroll < imageY + 600)){
         this.projectOnScreen = true;
       } else {
         this.projectOnScreen = false;
@@ -345,7 +356,7 @@ export default {
       }
     },
     updateEntranceAnimation(e){
-      if(e.match) this.entranceAnimation = this.initEntranceAnimation("mobile");
+      if(e.matches) this.entranceAnimation = this.initEntranceAnimation("mobile");
       else this.entranceAnimation = this.initEntranceAnimation();
     },
     initEntranceAnimation(format){
@@ -455,6 +466,7 @@ export default {
 
       .projectInfoLabel {
         color: black;
+        text-shadow: none;
         padding-right: $info-spacing;
       }
     }
@@ -646,6 +658,10 @@ export default {
 @media screen and (max-width: map-get($map: $grid-breakpoints, $key: "lg")){
   .projectSummaryRoot{
 
+    .projectDot{
+      left: -25px;
+    }
+
     .projectTitleWrapper{
 
       .projectTitle{
@@ -655,11 +671,12 @@ export default {
 
     .projectContent{
       padding-left: 2rem;
+      position: relative;
     }
 
     .projectImgPreviewWrapper{
       width: 120%;
-      z-index: -1;
+      z-index: 0;
     }
 
     .demoLinkWrapper{
@@ -670,9 +687,69 @@ export default {
 
 @media screen and (max-width: map-get($map: $grid-breakpoints, $key: "sm")){
   .projectSummaryRoot{
+    
+    .projectContentCol{
+      display: flex;
+      align-items: center;
+    }
+
+    .projectDot{
+      left: unset;
+      right: 0vw;
+      margin-top: -10px;
+
+      width: 8vw;
+      height: 8vw;
+      background-color: var(--applered);
+      border: 2.3vw solid var(--dullpaper);
+
+      &.mobile{
+        border: 2.3vw solid var(--lightpink);
+        box-shadow: 0px 0px 1px var(--dullerpink);
+      }
+      &.mobile.fill{
+        border: 1vw solid var(--lightpink);
+      }
+    }
+    .projectTitleWrapper{
+      width: 80%;
+
+      .projectTitle{
+        width: 40%;
+        font-size: 2rem;
+
+        &:hover{
+          -webkit-text-stroke: 2px black;
+          color: transparent;
+        }
+        &:active{
+          -webkit-text-stroke: 0px;
+          color: var(--dullerpink);
+        }
+      }
+    }
+
+    .projectInfo{
+      font-size: 1.3rem;
+      margin: 0;
+    }
 
     .projectContent{
       padding-left: 1rem;
+
+      .projectSummary{
+        position: relative;
+        .projectSummaryBg{
+          position: absolute;
+          top: 0;
+          left: -20px;
+          width: 100%;
+          height: 100%;
+          background-color: var(--applered);
+          z-index: -1;
+        }
+      }
+
     }
 
     .demoLinkWrapper{

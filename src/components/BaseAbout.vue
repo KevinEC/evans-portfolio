@@ -1,5 +1,11 @@
 <template>
-    <kinesis-container :duration="200" :perspective="1000000" :active="true" class="container baseAboutRoot">
+    <kinesis-container 
+        :duration="200" 
+        :perspective="1000000" 
+        :active="!onMobile" 
+        class="container baseAboutRoot" 
+        :class="onMobileComputed"
+    >
         <div class="row">
             <div class="col-sm-10 offset-sm-1">
                 <h2 class="aboutTitleWrapper">
@@ -40,7 +46,7 @@
             </div>
         </div>
         <kinesis-container :duration="300" event="scroll" class="row">
-            <div class="col-sm-5 offset-sm-1">
+            <div class="col-xs-5 offset-xs-1 col-sm-5 offset-sm-1 col-md-8 col-lg-5 offset-lg-1">
                 <div class="aboutLeft">
                     <kinesis-element 
                         tag="p" 
@@ -54,12 +60,12 @@
                     <kinesis-element 
                         class="aboutTextRect"
                         type="translate"
-                        :strength="140"
+                        :strength="onMobileKineticUpperRectStrength"
                         :maxY="20">
                     </kinesis-element>
                 </div>
             </div>
-            <div class="col-sm-4 offset-sm-1">
+            <div class="col-xs-7 offset-xs-4 col-sm-7 offset-sm-4 col-md-6 offset-md-4 col-lg-4 offset-lg-1">
                 <div class="aboutRight">
                     <kinesis-element tag="img" :strength="80" class="aboutPortrait behind" src="./porttrait-fill.png" alt="portrait image of Kevin Evans" />
                     <kinesis-element tag="img" :strength="-80" class="aboutPortrait" src="./porttrait.png" alt="portrait image of Kevin Evans" />
@@ -95,22 +101,47 @@ export default {
     },
     data () {
         return {
-
+            onMobile: false
         };
     },
     mounted(){
         document.documentElement.style.setProperty("--nav-background", "transparent")
         document.documentElement.style.setProperty("--nav-color", "white")
         document.documentElement.style.setProperty("--logo-color", "white")
+        
         let aboutBg = getComputedStyle(document.documentElement).getPropertyValue("--about-bg")
-
         document.documentElement.style.setProperty("--background-color", aboutBg)
 
+        let mmQuery = window.matchMedia("(max-width: 560px)");
+        mmQuery.addEventListener("change", this.onQuery);
+        this.toggleMobile(mmQuery.matches);
+    },
+    computed: {
+        onMobileComputed(){
+            if(this.onMobile) return "mobile";
+            return "";
+        },
+        onMobileKineticUpperRectStrength(){
+            if(this.onMobile) return 80;
+            return 140;
+        }
+    },
+    methods: {
+        onQuery(e){
+            if(e.matches) this.toggleMobile(true);
+            else this.toggleMobile(false);
+        },
+        toggleMobile(state){
+            if(state) this.onMobile = true;
+            else this.onMobile = false;
+        }
     }
 }
 </script>
 
 <style lang="scss">
+@import "../custom-variables.scss";
+
 .baseAboutRoot{
     background-color: var(--about-bg);
     padding-top: 30px;
@@ -217,6 +248,87 @@ export default {
             }
         }
         
+    }
+}
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "lg")){
+    .baseAboutRoot{
+        
+        .aboutRight{
+            z-index: -1;
+
+            .aboutPortrait, .aboutPortrait.behind{
+                width: 70%;
+                top: -350px;
+                left: 100px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: map-get($map: $grid-breakpoints, $key: "md")){
+    .baseAboutRoot{
+        
+        .aboutRight{
+            z-index: -1;
+
+            .aboutPortrait, .aboutPortrait.behind{
+                width: 50%;
+                top: -350px;
+                left: 100px;
+            }
+        }
+    }
+}
+.baseAboutRoot.mobile{
+    .aboutTitleWrapper{
+        margin-left: 1vw;
+        margin-top: 15rem;
+        margin-bottom: 0;
+
+        padding-top: 11rem;
+        padding-bottom: 0rem;
+        width: 100%;
+
+        .aboutTitle{
+            font-size: 14vw;
+            word-break: keep-all;
+            width: 100%;
+        }
+
+        .aboutTitleBack{
+            left: -40px;
+            top: -35px;
+        }
+        .aboutTitleMid{
+            top: 0;
+            left: 0;
+        }
+
+        .aboutTitleFront{
+            left: 40px;
+            top: 35px;
+        }
+    }
+    .aboutLeft{
+        padding-top: 0;
+        width: 80%;
+        margin-left: 10%;
+    }
+
+    .aboutRight{
+        width: 70%;
+        margin-left: 15%;
+
+        .aboutPortrait, .aboutPortrait.behind{
+            top: -42rem;
+            left: 20vw;
+            width: 80%;
+        }
+
+        .aboutTextRect{
+            width: 90%;
+        }
     }
 }
 
