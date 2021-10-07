@@ -1,7 +1,7 @@
 <template>
   <transition 
-  				name="fade" 
-  				mode="out-in"
+        name="fade" 
+        mode="out-in"
 				v-on:before-enter="beforeEnter"
 				v-on:enter="enter"
 				v-on:after-enter="afterEnter"
