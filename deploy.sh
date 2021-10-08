@@ -1,5 +1,7 @@
 npm run build
 
+cp CNAME dist/
+
 cd dist
 
 git init
