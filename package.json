@@ -9,6 +9,8 @@
     "deploy": "sh deploy.sh"
   },
   "dependencies": {
+    "@egjs/flicking-plugins": "^4.2.1",
+    "@egjs/vue-flicking": "^4.3.0",
     "bootstrap": "^4.5.2",
     "core-js": "^3.6.5",
     "serialize-javascript": "^4.0.0",
@@ -22,7 +24,7 @@
     "@vue/cli-plugin-eslint": "~4.5.4",
     "@vue/cli-service": "^4.5.13",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.7.0",
+    "eslint": "^7.32.0",
     "eslint-plugin-vue": "^6.2.2",
     "jquery": "^3.5.1",
     "node-sass": "^4.14.1",

@@ -152,26 +152,30 @@
     </div>
     
     <div class="row">
-      <div class="col-sm-12">
-        <kinesis-container class="projectGalleryKinesisContainer collapse" :id="galleryToggleId">
-          <kinesis-element 
-            type="translate"
-            axis="x"
-            :strength="galleryScrollStrength"
-            transformOrigin="-1000px 0"
-            class="projectGalleryWrapper"
-            >
-            <div v-for="(image,i) in galleryImagesComputed"
-                :key="i"
-                class="projectGalleryImageWrapper"
-              >
-              <div class="previewImageLayer" id="projectImagePinkLayer"></div>
-              <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
-              <img class="projectGalleryImage" :src="'./projectPreviews/'+galleryPathComputed+'/'+image"/>
-              <div class="previewImageLayer" id="previewImageBg"></div>
-            </div>
-          </kinesis-element>
-        </kinesis-container>
+      <div class="col-sm-12 collapse" :id="galleryToggleId">
+        <Flicking
+          class="projectGalleryWrapper"
+          :style="{overflow: 'visible'}"
+          :options="{
+            align: 'prev',
+            circular: true,
+            autoResize: true
+          }"
+          :plugins="plugins"
+          ref="flicking"
+        >
+          <div v-for="(image, i) in galleryImagesComputed"
+               :key="i"
+               class="projectGalleryImageWrapper panel"
+          >
+            <div class="previewImageLayer" id="projectImagePinkLayer"></div>
+            <div class="previewImageLayer" id="previewImageWhiteLayer"></div>
+            <img class="projectGalleryImage" :src="'./projectPreviews/'+galleryPathComputed+'/'+image"/>
+            <div class="previewImageLayer" id="previewImageBg"></div>
+          </div>
+          <span slot="viewport" class="flicking-arrow-prev"></span>
+          <span slot="viewport" class="flicking-arrow-next"></span>
+        </Flicking>
       </div>
     </div>
   </div>
@@ -181,12 +185,17 @@
 import anime from "animejs";
 import $ from 'jquery'
 import { KinesisContainer, KinesisElement } from "vue-kinesis";
+import { Flicking } from "@egjs/vue-flicking";
+import { Arrow } from "@egjs/flicking-plugins";
+import "@egjs/flicking-plugins/dist/arrow.css";
+import "@egjs/vue-flicking/dist/flicking.css";
 
 export default {
   name: "ProjectSummary",
   components: {
     KinesisElement,
-    KinesisContainer
+    KinesisContainer,
+    Flicking
   },
   props: {
     project: {
@@ -196,6 +205,7 @@ export default {
   },
   data() {
     return {
+      plugins: [new Arrow()],
       expanded: false,
       galleryExpanded: false,
       expandGalleryToo: false,
@@ -214,6 +224,7 @@ export default {
   mounted(){
     //this.initEntranceAnimation();
     this.expandOnInit();
+    window.onresize = this.onResize;
 
     let mmQuery = window.matchMedia("(max-width: 900px)");
     mmQuery.addEventListener("change", this.updateEntranceAnimation);
@@ -286,6 +297,10 @@ export default {
     galleryToggleId() {
       return "gallery" + this._uid;
     },
+    galleryDisplayStyle(){
+      if(this.galleryExpanded) return {display: "flex"}
+      return {display: "unset"}
+    },
     imageId(){
       return "image" + this._uid;
     },
@@ -325,6 +340,8 @@ export default {
     },
     galleryToggle() {
       this.galleryExpanded = !this.galleryExpanded;
+
+      setTimeout(() => {this.$refs.flicking.resize()}, 1000);
     },
     expandOnInit(){
       if(this.project.initExpanded){
@@ -334,6 +351,10 @@ export default {
     getEl: function (selector) {
   		return this.$vnode.elm.querySelector(selector);
   	},
+    onResize(e){
+      console.log("RESIZE")
+      this.$refs.flicking.resize();
+    },
     handleScroll(event, element){
 
       let imageY = element.getBoundingClientRect().top + window.scrollY - 800;
@@ -480,7 +501,6 @@ export default {
     margin-top: -250px;
     margin-left: -20px;
     width: 100%;
-    //z-index: -1;
     display: flex;
     justify-content: flex-end;
     position: relative;
@@ -561,58 +581,68 @@ export default {
     }
   }
 
-  .projectGalleryKinesisContainer{
-    
-    .projectGalleryWrapper{
-      margin-top: 120px;
-      display: flex;
-      flex-flow: row nowrap;
-      overflow-x: visible;
 
-      .projectGalleryImageWrapper{
-        position: relative;
-        transform: translate3d(0, 0, 0) translateX(-160%) ;
-        margin-right: 10%;
-        height: 100%;
-        transition: transform cubic-bezier(0.35, 0.76, 0.36, 1) 0.15s;
 
-        &:hover{
-          transform: translate3d(0, 0, 0) translateX(-160%) rotateX(0deg) rotateZ(0deg) rotateY(0deg) translateY(-100px) scale(1.3);
-          //margin-right: 10%;
+  .projectGalleryWrapper{
+    margin-top: 120px;
+    display: flex;
+    flex-flow: row nowrap;
 
-          .projectGalleryImage{
-            filter: saturate(1) blur(0px);
-          }
-
-          #projectImagePinkLayer{
-            background-color: rgba(#ebd8d8, 0);
-          }
-
-          #previewImageWhiteLayer{
-            background-color: rgba(white, 0);
-          }
-          #previewImageBg{
-            top: 0px;
-            left: 0px;
-            transform: scale(0.9);
-            background-color: var(--applered);
-          }
+    .flicking-arrow-next, .flicking-arrow-prev{
+      border-radius: 100%;
+      background-color: rgba(white, 0.8);
+      &:before,&:after{
+        background-color: var(--dullerpink);
+      }
+      &:hover{
+        &:before,&:after{
+          background-color: var(--applered);
         }
       }
-  
-      .projectGalleryImage{
-        width: 500px;
-        height: auto;
-        backface-visibility: hidden;
-        object-fit: contain;
-        z-index: -5;
-        position: relative;
-        filter: saturate(0) blur(0px);
-        transition: filter ease-out 0.15s;
-      }
-  
     }
+
+    .projectGalleryImageWrapper{
+      position: relative;
+      margin-right: 10%;
+      height: 100%;
+      transition: transform cubic-bezier(0.35, 0.76, 0.36, 1) 0.15s;
+
+      &:hover{
+
+        .projectGalleryImage{
+          filter: saturate(1) blur(0px);
+        }
+
+        #projectImagePinkLayer{
+          background-color: rgba(#ebd8d8, 0);
+        }
+
+        #previewImageWhiteLayer{
+          background-color: rgba(white, 0);
+        }
+        #previewImageBg{
+          top: 0px;
+          left: 0px;
+          transform: scale(0.9);
+          background-color: var(--applered);
+        }
+      }
+    }
+
+    .projectGalleryImage{
+      width: 500px;
+      height: auto;
+      backface-visibility: hidden;
+      object-fit: contain;
+      z-index: -5;
+      position: relative;
+      filter: saturate(0) blur(0px);
+      transition: filter ease-out 0.15s;
+    }
+
   }
+    
+  
   .previewImageLayer{
     width: 100%;
     height: 100%;
@@ -776,6 +806,34 @@ export default {
       }
     }
 
+    .projectGalleryWrapper{
+      .flicking-arrow-next, .flicking-arrow-prev{
+        display: none;
+      }
+      
+      .projectGalleryImage{
+        width: 90vw;
+      }
+      .projectGalleryImageWrapper{
+      
+        &:hover{
+          transform: translateY(0);
+        }
+
+        .projectGalleryImage{
+          filter: saturate(1) blur(0px);
+        }
+
+        #projectImagePinkLayer{
+          background-color: rgba(#ebd8d8, 0);
+        }
+
+        #previewImageWhiteLayer{
+          background-color: rgba(white, 0);
+        }
+      }
+
+    }
     
   }
 }

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
 import bootstrap from "bootstrap"
+import "@egjs/vue-flicking/dist/flicking.css";
 var VueScrollTo = require('vue-scrollto');
 
 Vue.config.productionTip = false
