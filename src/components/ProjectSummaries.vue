@@ -49,7 +49,7 @@
             description: "In the project The Web Conference a soft friendly design language was developed to create an inviting sensation. While keeping elements simple and straight forward to maintain a professional look to respect the conference context. The website contains functionality to ask the speaker questions live. When designing this functionality focus was put on accessibility and keyboard navigation as to avoid the interaction to become disruptive when listening. The main focus of the this website was to guide the user to this functionality and therefore preview links are presented in the landing page hero element which takes the user to the events page.",
             previewImg: 'home_header.png',
             galleryPath: 'conference',
-            gallery: ['conference_app_sc.jpg','events_default.png','events_selected.png','home_header.png','keynotes_defaukt.png','keynotes_selected.png']
+            gallery: ['conference_app_sc.jpg','events_default.png','events_selected.png','keynotes_defaukt.png','keynotes_selected.png']
           },
           {
             title: "Santa Concept Web Shop",
@@ -69,7 +69,7 @@
             description: "On request of my old friend Henrik I developed his official artist website with the goal of increased online presence. I took his vision to concept and translated his brand into the medium of a website. The outcome was a website that represented Bo’s work as a musician.",
             previewImg: 'bo_henrik_sc.jpg',
             galleryPath: 'bo_henrik',
-            gallery: ['release.jpg','music_about','contact.gif','busniess_card.jpg','mockup.jpg','mockup_music_contact.jpg',]
+            gallery: ['release.jpg','music_about.jpg','contact.gif','busniess_card.jpg','mockup.jpg','mockup_music_contact.jpg',]
           },
           {
             title: "TMA Artist Page",
@@ -79,7 +79,7 @@
             description: "In this project to create an artist website I was given free hands to create something in my own style by the client. I chose one primary color beside a shade of black and white and purposely chose Times New Roman as body text for its stripped down character to contrast the bold heading font. I worked a lot with overlapping and offset elements to make the otherwise simple layout to something more than the sum of its parts. This project never took off but the client was surprised how the mockups hit the nail on its head given how little visual context they had given.",
             previewImg: 'tma_sc.jpg',
             galleryPath: 'tma',
-            gallery: ['mockup_start.jpg','mockup_bio','bio_pattern.jpg','achievements.jpg','contact.jpg']
+            gallery: ['mockup_start.jpg','mockup_bio.jpg','bio_pattern.jpg','achievements.jpg','contact.jpg']
 
           },
         ]

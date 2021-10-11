@@ -9,8 +9,10 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import "./App.scss"
+import Vue from 'vue';
+import "./App.scss";
+import "@egjs/flicking-plugins/dist/arrow.css";
+import "@egjs/vue-flicking/dist/flicking.css";
 import BaseNavbar from "./components/BaseNavbar";
 import BaseFooter from "./components/BaseFooter";
 

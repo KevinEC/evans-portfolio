@@ -187,8 +187,6 @@ import $ from 'jquery'
 import { KinesisContainer, KinesisElement } from "vue-kinesis";
 import { Flicking } from "@egjs/vue-flicking";
 import { Arrow } from "@egjs/flicking-plugins";
-import "@egjs/flicking-plugins/dist/arrow.css";
-import "@egjs/vue-flicking/dist/flicking.css";
 
 export default {
   name: "ProjectSummary",
